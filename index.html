@@ -6,27 +6,43 @@
   <title>PJs Portal Mobile Showcase</title>
   <style>
     :root{
-      --bg:#f7f8fb;
+      --bg:#f8fbfd;
       --card:#ffffff;
-      --line:#dfe4ea;
+      --line:#dfe7ee;
       --text:#10213a;
       --muted:#667085;
-      --dark:#0f1830;
-      --dark2:#162449;
-      --brand-blue:#79cdf6;
-      --brand-blue-soft:#eaf8ff;
-      --brand-blue-deep:#45b4ed;
-      --brand-gold:#f3c84b;
-      --brand-gold-soft:#fff7da;
-      --green:#ecfdf3;
-      --amber:#fff9e6;
-      --rose:#fff3f5;
-      --orange:#fff5eb;
+      --dark:#10213a;
+      --dark2:#1a3150;
+
+      --pj-azure:#84DBF5;
+      --pj-azure-soft:#EEF9FE;
+      --pj-azure-border:#CDEFFC;
+      --pj-azure-dark:#2C6F86;
+
+      --pj-gold:#F3C84B;
+      --pj-gold-soft:#FFF8DE;
+
+      --green:#EDFDF4;
+      --green-border:#CFEFDC;
+      --green-dark:#227A52;
+
+      --amber:#FFF8E4;
+      --amber-border:#F5DE9A;
+      --amber-dark:#956300;
+
+      --rose:#FFF3F6;
+      --rose-border:#FFD5E0;
+      --rose-dark:#B44363;
+
+      --orange:#FFF5EB;
+      --orange-border:#FFD9B2;
+      --orange-dark:#B76A1C;
+
       --shadow:0 10px 30px rgba(16,33,58,.08);
+      --shadow-soft:0 6px 18px rgba(16,33,58,.06);
     }
 
     *{box-sizing:border-box}
-
     html{scroll-behavior:smooth}
 
     body{
@@ -34,9 +50,9 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(121,205,246,.18), transparent 28%),
+        radial-gradient(circle at top left, rgba(132,219,245,.18), transparent 28%),
         radial-gradient(circle at top right, rgba(243,200,75,.12), transparent 22%),
-        linear-gradient(to bottom,#f6f8fc,#ffffff);
+        linear-gradient(to bottom,#f7fbfe,#ffffff);
     }
 
     .wrap{max-width:1180px;margin:0 auto;padding:24px}
@@ -68,11 +84,10 @@
       justify-content:center;
       flex-wrap:wrap;
     }
-
     .tabs{margin-top:22px}
     .scenario-tabs{margin-top:12px}
 
-    .tab,.scenario-btn{
+    .tab,.scenario-btn,.portal-choice{
       border:1px solid var(--line);
       background:#fff;
       color:#475569;
@@ -83,9 +98,8 @@
       transition:.2s ease;
       box-shadow:0 2px 10px rgba(15,24,48,.03);
     }
-
-    .tab:hover,.scenario-btn:hover{transform:translateY(-1px)}
-    .tab.active,.scenario-btn.active{
+    .tab:hover,.scenario-btn:hover,.portal-choice:hover{transform:translateY(-1px)}
+    .tab.active,.scenario-btn.active,.portal-choice.active{
       background:var(--dark);
       color:#fff;
       border-color:var(--dark);
@@ -112,37 +126,44 @@
       top:20px;
       overflow:hidden;
     }
-
     .panel:before{
       content:"";
       position:absolute;
       inset:0;
       background:
-        radial-gradient(circle at top right, rgba(121,205,246,.13), transparent 26%),
-        radial-gradient(circle at bottom left, rgba(243,200,75,.12), transparent 22%);
+        radial-gradient(circle at top right, rgba(132,219,245,.14), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(243,200,75,.10), transparent 22%);
       pointer-events:none;
     }
-
     .panel > *{position:relative;z-index:1}
     .panel h3{margin:0 0 12px;font-size:16px}
     .panel p{color:#4e5d72;line-height:1.7;margin:10px 0;font-size:14px}
 
     .brand-card{
       margin-top:16px;
-      background:linear-gradient(135deg,#f9fcff,#fffdf5);
+      background:linear-gradient(135deg,#f9fdff,#fffdf6);
       display:grid;
-      grid-template-columns:1fr 90px;
+      grid-template-columns:1fr 92px;
       gap:14px;
       align-items:center;
     }
 
-    .brand-card img{
+    .jax-badge{
       width:86px;
-      height:auto;
-      display:block;
+      height:86px;
+      border-radius:24px;
+      background:linear-gradient(135deg,var(--pj-azure-soft),#ffffff);
+      border:1px solid var(--pj-azure-border);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
       justify-self:end;
-      filter:drop-shadow(0 8px 20px rgba(16,33,58,.10));
+      box-shadow:var(--shadow-soft);
+      color:var(--dark);
     }
+    .jax-badge .dog{font-size:34px;line-height:1}
+    .jax-badge .name{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
 
     .bullet{
       display:flex;
@@ -153,7 +174,6 @@
       margin-top:12px;
       background:#fff;
     }
-
     .dot{
       width:10px;
       height:10px;
@@ -180,7 +200,7 @@
       width:390px;
       max-width:100%;
       margin:0 auto;
-      background:#020617;
+      background:#07101f;
       padding:8px;
       border-radius:36px;
       box-shadow:
@@ -194,16 +214,16 @@
       border-radius:32px;
       overflow:hidden;
       border:1px solid var(--line);
+      position:relative;
     }
 
     .top{
       background:
-        radial-gradient(circle at top right, rgba(121,205,246,.18), transparent 28%),
-        linear-gradient(180deg,#081122,#122041);
+        radial-gradient(circle at top right, rgba(132,219,245,.18), transparent 28%),
+        linear-gradient(180deg,#0b1323,#163153);
       color:#fff;
       padding:14px 20px 16px;
     }
-
     .notch{
       height:24px;
       width:140px;
@@ -211,14 +231,12 @@
       background:rgba(0,0,0,.6);
       margin:0 auto 12px;
     }
-
     .status{
       display:flex;
       justify-content:space-between;
       color:#d4deed;
       font-size:12px;
     }
-
     .head{
       display:flex;
       justify-content:space-between;
@@ -226,21 +244,18 @@
       gap:16px;
       margin-top:12px;
     }
-
     .brand{
       font-size:11px;
       text-transform:uppercase;
       letter-spacing:.22em;
       color:#a8bbd9;
     }
-
     .title{
       font-size:24px;
       font-weight:800;
       margin-top:4px;
       letter-spacing:-.02em;
     }
-
     .avatar{
       width:42px;
       height:42px;
@@ -260,24 +275,22 @@
     }
 
     .card{padding:18px}
-    .card-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 
     .dark-card{
       background:
-        radial-gradient(circle at top right, rgba(121,205,246,.14), transparent 32%),
-        linear-gradient(135deg,#0b1328,#162449 35%,#29426a);
+        radial-gradient(circle at top right, rgba(132,219,245,.16), transparent 34%),
+        linear-gradient(135deg,#0b1328,#18365a 35%,#2e4f7a);
       color:#fff;
       border-radius:24px;
       padding:18px;
       position:relative;
       overflow:hidden;
     }
-
     .dark-card:after{
       content:"";
       position:absolute;
       inset:0;
-      background:radial-gradient(circle at bottom left, rgba(243,200,75,.12), transparent 20%);
+      background:radial-gradient(circle at bottom left, rgba(243,200,75,.12), transparent 22%);
       pointer-events:none;
     }
 
@@ -287,9 +300,7 @@
       text-transform:uppercase;
       letter-spacing:.2em;
     }
-
     .dark-card .small{color:#d2def1}
-
     .big{
       font-size:29px;
       line-height:1.02;
@@ -305,7 +316,6 @@
       line-height:1.65;
       font-size:14px;
     }
-
     .dark-card .muted{
       color:#ebf1fb;
       position:relative;
@@ -329,13 +339,11 @@
       font-size:13px;
       cursor:pointer;
     }
-
     .btn{
       background:#fff;
       color:#10213a;
       box-shadow:0 8px 20px rgba(16,33,58,.12);
     }
-
     .btn2{
       background:transparent;
       color:#fff;
@@ -355,13 +363,11 @@
       padding:14px;
       background:#fff;
     }
-
     .tile h4{
       margin:10px 0 0;
       font-size:14px;
       letter-spacing:-.01em;
     }
-
     .tile p{
       margin:4px 0 0;
       font-size:12px;
@@ -369,7 +375,7 @@
       line-height:1.55;
     }
 
-    .blue{background:var(--brand-blue-soft)}
+    .blue{background:var(--pj-azure-soft)}
     .green{background:var(--green)}
     .amber{background:var(--amber)}
     .rose{background:var(--rose)}
@@ -381,7 +387,6 @@
       margin:0;
       letter-spacing:-.02em;
     }
-
     .section-sub{
       font-size:14px;
       color:#64748b;
@@ -393,7 +398,6 @@
       margin-top:14px;
       position:relative;
     }
-
     .tracker:before{
       content:"";
       position:absolute;
@@ -410,7 +414,6 @@
       position:relative;
       margin:14px 0;
     }
-
     .bubble{
       width:24px;
       height:24px;
@@ -425,13 +428,11 @@
       color:#94a3b8;
       flex:0 0 auto
     }
-
     .bubble.done{
       background:#111827;
       border-color:#111827;
       color:#fff
     }
-
     .step .meta{flex:1}
     .step .meta .a{font-size:14px;font-weight:700}
     .step .meta .b{font-size:12px;color:#94a3b8;margin-top:2px}
@@ -453,10 +454,10 @@
       flex-shrink:0;
     }
 
-    .pill.green{background:#ecfdf5;color:#047857;border-color:#d1fae5}
-    .pill.blue{background:#eff6ff;color:#1d4ed8;border-color:#dbeafe}
-    .pill.amber{background:#fff7da;color:#9a6700;border-color:#f3d98f}
-    .pill.rose{background:#fff1f2;color:#be123c;border-color:#fecdd3}
+    .pill.green{background:var(--green);color:var(--green-dark);border-color:var(--green-border)}
+    .pill.blue{background:var(--pj-azure-soft);color:var(--pj-azure-dark);border-color:var(--pj-azure-border)}
+    .pill.amber{background:var(--pj-gold-soft);color:var(--amber-dark);border-color:var(--amber-border)}
+    .pill.rose{background:var(--rose);color:var(--rose-dark);border-color:var(--rose-border)}
 
     .receipt-row,.split{display:flex;justify-content:space-between;gap:12px}
     .receipt-row{font-size:14px;margin-top:9px}
@@ -468,10 +469,9 @@
       overflow:hidden;
       margin-top:10px;
     }
-
     .progress > div{
       height:100%;
-      background:linear-gradient(90deg,var(--brand-blue-deep),#10213a);
+      background:linear-gradient(90deg,var(--pj-azure),#2C6F86);
     }
 
     .nav{
@@ -487,7 +487,6 @@
       justify-content:space-between;
       gap:8px
     }
-
     .nav .item{
       width:46px;
       height:46px;
@@ -497,7 +496,6 @@
       color:#64748b;
       font-size:18px
     }
-
     .nav .item.active{
       background:var(--dark);
       color:#fff
@@ -508,20 +506,17 @@
       grid-template-columns:repeat(2,1fr);
       gap:10px
     }
-
     .metric{
       border-radius:24px;
       padding:14px;
       border:1px solid var(--line)
     }
-
     .metric .k{
       font-size:12px;
       text-transform:uppercase;
       letter-spacing:.16em;
       color:#64748b
     }
-
     .metric .v{
       font-size:30px;
       font-weight:800;
@@ -535,15 +530,12 @@
       gap:8px;
       margin-top:14px
     }
-
     .barwrap{flex:1;text-align:center}
-
     .bar{
       width:100%;
-      background:linear-gradient(180deg,var(--brand-blue-deep),var(--dark));
+      background:linear-gradient(180deg,var(--pj-azure),var(--dark));
       border-radius:16px 16px 0 0
     }
-
     .label{
       margin-top:8px;
       font-size:10px;
@@ -568,7 +560,6 @@
       margin-top:12px;
       background:#fff;
     }
-
     .task h4{margin:0;font-size:14px}
     .task p{margin:6px 0 0;font-size:12px;color:#64748b}
     .task .act{display:flex;gap:8px;margin-top:12px}
@@ -582,10 +573,9 @@
       background:#fff;
       cursor:pointer;
     }
-
     .smallbtn.dark{
-      background:#111827;
-      border-color:#111827;
+      background:var(--dark);
+      border-color:var(--dark);
       color:#fff
     }
 
@@ -610,27 +600,23 @@
       overflow:hidden;
       background:#f8fafc
     }
-
     .map-art{
       height:176px;
       background:
-        radial-gradient(circle at top left, rgba(121,205,246,.18), transparent 24%),
-        linear-gradient(135deg,#eef3fb,#fafcff,#ffffff);
+        radial-gradient(circle at top left, rgba(132,219,245,.18), transparent 24%),
+        linear-gradient(135deg,#eef6fb,#fafcff,#ffffff);
       position:relative
     }
-
     .road{position:absolute;background:#c4cfdd}
     .road.h1{left:40px;right:40px;top:56px;height:2px;transform:rotate(8deg)}
     .road.h2{left:64px;right:64px;top:100px;height:2px;transform:rotate(-12deg)}
     .road.v1{left:58px;top:26px;bottom:26px;width:2px;transform:rotate(6deg)}
     .road.v2{right:64px;top:22px;bottom:22px;width:2px;transform:rotate(-10deg)}
-
     .ring{
       position:absolute;
       border:1px solid rgba(141,156,178,.65);
       border-radius:999px
     }
-
     .ring.a{left:24px;top:24px;width:96px;height:96px}
     .ring.b{right:28px;bottom:24px;width:76px;height:76px}
 
@@ -649,7 +635,6 @@
       letter-spacing:0;
       min-width:64px;
     }
-
     .pin.store{
       left:28px;
       top:26px;
@@ -657,14 +642,12 @@
       border:1px solid var(--line);
       color:#334155;
     }
-
     .pin.dest{
       right:28px;
       bottom:26px;
       background:#111827;
       color:#fff;
     }
-
     .pin.live{
       left:44%;
       top:42%;
@@ -673,10 +656,9 @@
       min-width:74px;
       padding:8px 14px;
     }
-
     .pin.live.green{background:#63cb93;color:#fff}
-    .pin.live.blue{background:#4dbcf1;color:#fff}
-    .pin.live.amber{background:#f3c84b;color:#10213a}
+    .pin.live.blue{background:var(--pj-azure);color:#163153}
+    .pin.live.amber{background:var(--pj-gold);color:#10213a}
 
     .map-body{background:#fff;padding:16px}
 
@@ -687,14 +669,12 @@
       margin-top:14px;
       text-align:center
     }
-
     .mini{
       border:1px solid var(--line);
       background:#f8fafc;
       border-radius:18px;
       padding:12px
     }
-
     .mini strong{
       display:block;
       font-size:17px
@@ -706,25 +686,21 @@
       gap:10px;
       margin-top:14px
     }
-
     .heat{
       border-radius:24px;
       padding:14px;
       border:1px solid var(--line)
     }
-
     .heat .z{
       font-size:11px;
       text-transform:uppercase;
       letter-spacing:.18em
     }
-
     .heat .t{
       font-size:14px;
       font-weight:800;
       margin-top:8px
     }
-
     .heat .lvl{
       display:inline-flex;
       margin-top:12px;
@@ -744,15 +720,225 @@
         transform .65s cubic-bezier(.2,.8,.2,1);
       will-change:transform,opacity;
     }
-
     .reveal.in{
       opacity:1;
       transform:translateY(0) scale(1);
     }
 
+    .jax-helper{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:999;
+      display:flex;
+      align-items:end;
+      gap:10px;
+      pointer-events:none;
+    }
+
+    .jax-avatar{
+      width:70px;
+      height:70px;
+      border-radius:22px;
+      background:linear-gradient(135deg,var(--pj-azure-soft),#fff);
+      border:1px solid var(--pj-azure-border);
+      display:grid;
+      place-items:center;
+      font-size:34px;
+      box-shadow:0 18px 40px rgba(16,33,58,.16);
+      animation:floatJax 3s ease-in-out infinite;
+    }
+
+    .jax-bubble{
+      max-width:220px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:12px 14px;
+      box-shadow:0 16px 40px rgba(16,33,58,.12);
+      font-size:13px;
+      line-height:1.45;
+      color:#425066;
+      animation:floatBubble 3s ease-in-out infinite;
+    }
+    .jax-bubble strong{
+      display:block;
+      color:var(--dark);
+      margin-bottom:4px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .login-shell{
+      min-height:734px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:14px;
+      padding:14px;
+      background:
+        radial-gradient(circle at top left, rgba(132,219,245,.18), transparent 30%),
+        linear-gradient(to bottom,#f8fbfd,#ffffff);
+    }
+
+    .login-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    .login-brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .logo-mini{
+      width:58px;
+      height:58px;
+      border-radius:20px;
+      background:linear-gradient(135deg,var(--pj-azure-soft),#fff);
+      border:1px solid var(--pj-azure-border);
+      display:grid;
+      place-items:center;
+      font-size:28px;
+      box-shadow:var(--shadow-soft);
+      flex:0 0 auto;
+    }
+
+    .portal-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .portal-card{
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:14px;
+      cursor:pointer;
+      transition:.2s ease;
+      background:#fff;
+    }
+    .portal-card:hover{transform:translateY(-1px)}
+    .portal-card.active{
+      border-color:var(--pj-azure-border);
+      background:var(--pj-azure-soft);
+      box-shadow:0 8px 24px rgba(132,219,245,.22);
+    }
+    .portal-card h4{
+      margin:0;
+      font-size:15px;
+      font-weight:800;
+    }
+    .portal-card p{
+      margin:6px 0 0;
+      font-size:12px;
+      line-height:1.5;
+      color:#64748b;
+    }
+
+    .field{
+      margin-top:12px;
+    }
+    .field label{
+      display:block;
+      font-size:12px;
+      font-weight:800;
+      color:#465469;
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .field input{
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:18px;
+      padding:14px 14px;
+      font-size:14px;
+      outline:none;
+    }
+    .field input:focus{
+      border-color:var(--pj-azure);
+      box-shadow:0 0 0 4px rgba(132,219,245,.18);
+    }
+
+    .login-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .primary-btn{
+      border:none;
+      border-radius:999px;
+      background:var(--dark);
+      color:#fff;
+      padding:13px 16px;
+      font-size:13px;
+      font-weight:800;
+      cursor:pointer;
+      flex:1;
+      min-width:160px;
+    }
+
+    .ghost-btn{
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:#334155;
+      padding:13px 16px;
+      font-size:13px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .demo-note{
+      margin-top:14px;
+      border-radius:20px;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      padding:14px;
+      font-size:12px;
+      line-height:1.6;
+      color:#5b6678;
+    }
+
+    @keyframes floatJax{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+    }
+    @keyframes floatBubble{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-4px)}
+    }
+
     @media (max-width: 960px){
       .grid{grid-template-columns:1fr}
       .panel{position:static}
+    }
+
+    @media (max-width: 640px){
+      .jax-helper{
+        right:12px;
+        bottom:12px;
+      }
+      .jax-bubble{
+        max-width:170px;
+        font-size:12px;
+      }
+      .jax-avatar{
+        width:58px;
+        height:58px;
+        font-size:28px;
+      }
     }
   </style>
 </head>
@@ -785,85 +971,14 @@
             <div style="font-size:14px;color:#475569;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
             <div style="font-size:12px;color:#64748b;margin-top:10px">Modern, approachable, polished, and premium without feeling cold.</div>
           </div>
-          <img alt="Jax mascot" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAkfklEQVR4nO2deZwVxbX4v91919n3BWYYGQUBQYQdH2MUBTUxcUNMMMVHPjgx4YMjxqvJmBhjfvTEmPjjqTHx5NhNfDHiA2Pik3f8MBgVQUTQxQxBUVABBGbY+6qnq7qru7q7q3v3vH9U3dXV1T3dPd09M3fP83w669apU6dq1ar3qt5VCCFACAQCgUAgmCB1dXW1/7kNQCAQCAQCgUAQOQmBQCAQCAQCgQnJQCAQCAQCgUAwIRkIBAKBQCAQCASkJAMBAoFAIBAIBJOSgUAgEAgEAoFAMCEZCAQCgUAgEAgEJjTF+2q1Gk1NTQ8tLS1/OA0CgUAgEAgEgqkQhmGY9b8YhsFf/vKXn52dnf+8DQKBQCAQCASCqRCGYZj1vxh+8Ytf/NPx8fF/mw0CgUAgEAgEgmkg3/3ud/9mGAa/8Y1v/HM2NjY/5YNAIBAIBAKBYBpIGIbhv/71r/+6Wq3+v8eOHfNf7QKBQCAQCASCaSB8/vOf/6ulpWV+7ty5/5wNAoFAIBAIBIJpIMPDw//4+eef/0ehUPjf2SAQCAQCgUAgmAYiHo//4fHjx//pW9/61m/eBQKBQCAQCASCaSAXL178b0dHx/9tNggEAoFAIBAIBtNApqamfu7zzz//f0Kh0P+eDQKBQCAQCASCaSDr6+v/9MMPP/xfhUJh/m82CAQCgUAgEAgG00CWlpb/8fPPP/+vQqHQ/54NAoFAIBAIBIJpINvb2//w+eef/6tQKPQf3AQCgUAgEAgE0wD29vZ+7vnz5/8rFAr9BzcBAoFAIBAIBNMAer3e33zzzTcfqFarv3ETAoFAIBAIBIJpAN3d3T/++uuv/2+FQuH/mAkEAoFAIBAIBNMAYrHYv3Tt2rX/fKVSeUsTCAQCgUAgEAimATQ0NPxfr169+v9Uq1Vv7QKBQCAQCASCaQApKSmf+v777//fSqXy3k0gEAgEAoFAIJgG8MILL3z66aef/v9SqfQ3bgKBQCAQCAQCwTSALVu2/NNPP/30f6pWq7e2gUAgEAgEAoFgGkBvb++n1Wr1/6dQKPQf3gQCgUAgEAgE0wB+9atf/et///d//9dKpfLfTSAQCAQCgUAgmAbQ19f3yW+//fY/lUqltzaBQCAQCAQCgWAaQHNz84fVavX/K5VKf3MTCASCUQu1Wk2nTp3i0KFDfP7552QyGWRZ5sMPP2Tv3r1s3ryZfD7P7du3Wb9+Pdu3b+fNN9/k8OHDbNq0iZUrV/LMM8+wYcMG1q5dy9KlS1m/fj3nzp1j8+bNfPrpp2zbto2FCxfi8XjYtWsX9913H8uXL8fpdPLKK6+Qz+eZmZnB4/Fw9OhR6urqePnll1mzZg0nT57kxIkTPPHEEwQCAV5//XWef/55urq62LJlC2fOnOG7774jl8tx9uxZXn75ZXbu3MnChQtZsWIFtbW1NDQ0sH37dn744Qf27NlDPp9n0aJFPP3000xPT7Nlyxa2bt3K+vXrefLJJ4lEIhw9epTf/e53zM/Ps3nzZrZu3crixYvp6OggHo9TWVnJokWLWLVqFefPn2fVqlVotVqeeuop4vE4Gzdu5PPPP2fLli20trYyOTnJ3Nwc3d3dLF26lGPHjjE7O8v999/PnTt3GB0dZWJiApvNxpw5c9i3bx9tbW1s2rSJW7du8fbbb/PWW29RLBZZuXIlr776Kr/5zW/Yv38/r7zyCt9++y0LFizg+eef5+abb+b8+fM8//zzREIBAoEAiUSCdevWceTIESKRCD6fj5aWFiKRCD09PeTzeV566SUGBgYIBAJ0dHRw9uxZ/v73v7N58+Yf3AQCgWAaxfbt2/9Rq9X/8QcPHvznbwKBQDCNoNls8te//pWvv/6a2dlZ6urqaG9v59lnn+X06dP4/X5+9atf8dZbb2EYBvF4nK6uLoLBIM8//zxPP/00L7zwAps2bQKgr6+P++67j1QqxdTUFO+88w5er5d33nmHqakp/vWvf/Hcc89x4MABTp8+TTab5eGHH+arr75i8+bNzMzM0NjYSK/Xk0wmWb58OS+99BIPPfQQr7/+OrW1tQSDQd555x3i8Tj5fJ5PP/2UZDLJkSNHmJ2d5e233+bbbrtFq9WSTqeJxWJMnDiR0dFRjhw5woYNG8jn8ySTSZKJBNFoFKvVyv79+3n99dfJ5XJ4PB4KhQKtra0cPHgQh8PB8PAw0WiUQ4cOceDAATweD0uWLGHlypUsX76c48ePc+zYMXK5HOvWrePKlSs4nU6ef/55Fi1axNLSUnQ6HdFoFID5+Xl+9KMfsWfPHtatW8dDDz3E5OQkU1NTfPTRR4yNjbFq1Sp6enpIpVJMTk6yYsUKAIFAgHfffZeBgQGWLl3K5OQkPT09TJ06lZ07d1JfX8/GjRtJJBJ4vV6OHz/OiRMnOHHiBNOmTeOpp57i7bff5q677iIajfLwww+zYsUKtm/fzvPPP8+6devYtWsXJSUl4vE4Q0NDLFmyhK1bt3Lq1ClOnjxJbW0tlZWVrFy5kueff56nnnqK6elpAoEA8Xicr776iqlTp7J582YOHjzI559/TldXF2vWrPmdm0AgEExDmJmZ+fLll1/+n0Kh8Hdvg4n5wQ9+8Hc9PT1/vbGx8S8LhUI/5uDg4B+FQuH/0dnZ+b+VSuX/z+7u7j8uEAg8v7+/f1fTNP8tEAj8w9OnT//n6urqf6RQKPwfPT09f7ihoSEhEAj8k0Kh8L+7u7v/0bNnz/5DoVD4P9XU1PxulUr1P7R0dHQPnz9//m8LhcL/VqvV/0tlZWX/S0tLy/9NpVL9v3Z3d//j3/72t7++o6Pjf1qtVv93BwcH/7NCoVD4v62trf9YqVT+1+7u7r8uEAj8v4VCof+2Uql8nA0NDf9rdXV1/0dXV9efFQqF/1tFRcX/6O3t/f8qFAo/n0wm/1O1Wv3vGxoa/qfVavW/3N3d/Xt3d3f/N3V1df9Ha2vrL4VCof/e0NDwP+rr6/8vwzD8H1qtVv9DMBj8XxqG4f9dKpX6X2u1Wv0/hoaG/r1QKPwvLS0t/1StVv8/2tvb/7FQKPzvFAqF/1G1Wv2/7Ozs/KeFQqH/1d7e/sfDw8N/XiqV+r8qlcr/rVKp/J+rq6v/nUKh8H+tra3/VVtb2/8vlUr9L0NDQ/9prVb7v1qtVv9Ha2vrf1Uqlfr/s7W19X8qFAq/0tra+s8FAoH/2NjY+J8KhUL/l1qt9n+0trb+dx0dHf+vQqHQ/7q4uPjvFQqF/6O5ufmfTpw48Z0rKytfCQSCdHV1USgU8Pl8aLVaUqkUkUgEwzAIBAJMT0/T0dFBMBjk5MmT1NfX4/P5MJlMNDY2IooiNTU1+P1+o9Fo6O7uJhQKsWfPHvL5PH19fQSDQcrlcixfvpzVq1czPj7Ol19+STQaJRwOMz8/z7lz57j11ltJpVIsW7aMc+fO8eabb/LQQw+xY8cOkskk8/PzjIyMkM1m+eabb9i3bx+RSIRYLIbX6+XRRx9Fq9USDAa5fPkyXq8Xv9/P5OQkQ0NDmM1m6uvr6e3tJZfLcfDgQcrlMoFAgHA4TCQSIZvN8vbbb/PQQw/R2NhINpuV3X3kkUfYsWMH7e3tdHd3k0gkGB4eJhqN0tnZycDAAGfOnKG+vp6hoSEAo9GIx+M0NjZSKpVoampifn6e0dFRotEo0WiUcDiM3W5Hp9Nx+PBhZmZmmJmZ4d5772Xx4sVEIhGOHj1KOp0mFouRTqdJJpOkUimKxSKWLFmC1+tl06ZNjI2N4fV6mZ2dRafT8fzzz/Pjjz+yceNG4vE4jY2NnDlzhkKhgMViQRAEisUiFosFn8/HzMwMoVCI3W7H4/EQiUSoq6vj7NmzjI2N4fV6iUQijI+P09LSQjQapVwu09LSgs1mQ6/Xk8lkOH36NLlcjo6ODhqNBrlcjkKhgMfjQdM0FhYWmJmZoaysjMHBQWKxGM3Nzdi2TSwW47XXXmNmZoZnn32Wjo4OotEoRqMRpVKJUCjE448/zqpVq1i8eDFzc3M4nU7C4TBlZWUMDQ0RiUTo6upicnKSP/7xj9TV1TE1NcXq1auJxWK8+OKLxGIxSqUSQ0NDxGIxDhw4wMTERCYmJvD5fPT19fHbb79RV1fHqVOn8Pv99PT0EAgECAQCnDt3jv7+fmKxGPl8nmAwSCQSQafT0draSjQaJRgMEggECAQCRKNRwuEwAwMDrFu3jtWrV5PJZLh06RJ79uxhYGCASCSCy+Wivb2daDRKMBjkj3/8I7/73e/Q6/Vs2rSJd955h7m5OU6dOsXbb7/NpEmT+Oyzz4jFYrz22mv4/X4uX77M8PAw9fX1fPDBB+Tzeebm5mhubmZycpK2tjb8fj8ul4vVq1eTyWTYs2cPAwMD7Nu3j7m5OXp6egCeef/99xkdHeX27dvEx8cTi8UYGBigpqaGvXv3UllZyZgxY6ipqSEYDBKJRLj33nv5zW9+Q3NzM7m5uaxbt46pqSneeOMN/H4/oVCItra2f+8mEAgE0wByuRxvv/32f0ulUv+vjY2Nvz0aGhr+v8LCwv85FAr9r9Vq9f9uamoqf7xUKvV/e3t7/0ehUPj/0dvb+z8rFAq/0N/f/4cUCsX/3NLSEv95tVr9n7a2tv5noVD4fxwMBv/DUqn0P3V3d/9n5eXlf1QoFP5nNpsN/f39/0sikfC/6urq/i+GYfif2tvb/+uZmZn/IAiC/31tbW3/GoaB/7+2trb+z83Nzf+9Wq3+u1qt/ncKhcL/VFtb+9/C4TD/r7Gx8T9WqVT/6+7u/v9Wq9X/WSAQ+L9Vq9X/rVQq/X+1Wq3+rxqG4X/f1NT0f8gwDP/3XC7nH0KhEHfffTd2ux2bzUY8Hsfr9WJZFrlcjqGhIUZHRzGbzfT39xMKhTAajVQqFfx+P5VKhYODA2ZnZ7Hb7XzzzTc4HA6efvppYrEYdrsdm81GTU0N+/bt48iRIzQ3N9Pe3k5dXR0AsVgMo9GIw+GgUqlw6dIlHn/8ceLxOK+88goej4dAIMDHH3/M2NgY0WiU2tpaFhYWSCaTJBIJ8vk8drudQqFAKBQiHA7T19dHPB5n79699Pf3s27dOoLBIIVCgcrKShYWFpibm6Ouro5YLIbX6yUUCnH69GkmJiZwOBwYDAbm5+eZnJzE7/cTjUYZGxvDZrMxPT3N7du3aWpqQq/X09DQwNzcHHV1dfj9fjZv3szY2Bg2m42GhgZisRhtbW3E43EePXpEMpkkl8uRTqcxmUzY7XZcLheRSIRKpQKA1+vl1KlTbN68mdHRUfr6+hgcHMThcNDQ0EA8Hqe7u5tIJEIikSCfz+PxeBgZGaG9vR2/34/FYkGv1yORSDA5OcnAwAASiQSRSIR0Os2qVas4fvw4H3/8MdFoFJ/Px+TkJDabjTfffJO5uTkWFhbQarU4nU7cbre5TsMwqKurY2Zmhr6+PiKRCA6Hg9raWvr7+3G5XPT29lJfX88HH3zA5OQkiUSC9vZ2KpUKkUgEq9WKRqPB4XCQz+eJx+PEx8dTWVnJqVOneOKJJxgcHKShoYFIJMLKlSu5ePEiMpkMFRUVPPXUU0xPT+P3+5FKpVhaWqK9vR2fz0dTUxOtVotQKMTg4CC1tbW4XC7eeustTpw4QTQa5ciRI/z617+mVqsRiUQ4f/48sViM1atXMzAwQF1dHY8//jghk4/lXl5eZmFhAbvdTkNDA+Pj44TDYaxWK2NjY9hsNnK5HJ2dnaxdu5a6ujrC4TATExNkMhkcDgc2m40JEyZw6NAhkskkTz75JGazmXw+z7Jly8jn84RCIebm5nh+fn4/cBAIBNMA1q1b99+vVqv/4ZQpU/5fEASB/32NRvM/C4VC/1Mmk/lfNBoN/8sFAoH/V6PR/D9aWlr+7wqFQv+3QCDwf2gYhvlv3Nzc/H+vVqt/nGEY/o+6urp/Uq/X/7dKpfJ/R6PR/PeFQuH/V6vV/0utVvvf0Wi0/2+j0fifq1Qq/0e1Wv0fxWJx/3elUvl/s7S09H9gGAZ/zjAM/9dKpXL/Z7Vavf+rVqv/f0ql0v/7SqXy/6lWq/0vWltb/0+GYfg/0+v1/5NhGP4vwzD8n2ma5v+RSqX+v1qt9n/6+/v/n2q1Wv9noVD4H1qtVv8fRqPR/2EYhv+GxWJx/9dcLhcf0Ol0/4NqtfqXFRUVf1StVv+P8fHx/12lUvl/0Wg0/49Wq/1/WVlZ+W8KhcL/pFqt/j8qlUr/u2ma5n8zDMP/zcHBwT+1Wq3+n+7u7v+fSqXy/66goOC/SKVS/7P6+vp/TafT/Y8jR478b5VK5f/ezMwMPT09RCIRyuUyVqsVjUaD2Wwmm80Sj8eJxWIYhkFHR0d+gQCg2+2mUCgQiUSoqanBYrEQCoUwm80UCgW0Wi1ms5m+vj7q6uqIx+M0NjYSi8XI5/MEAgFCoRDRaJRYLIbf72d8fBxnz56lr6+ParVKNBols9nQarVotVoUCgUcDgc+n49QKMTExAQ2m43t27fT1dVFPp9n586dzM7OsnDhQmq1GhaLBaPRiNFopL29HZPJhNvtJh6Pk81mkUqlsNlsLF68mFarhV6vR6/XMz4+TldXFz6fj0gkQiKRYHx8HLPZzPDwMOFwmFwux7Zt2zh69ChHjx6ltraWtrY2hoaGqK6uJhKJMDs7i8vlYmRkhG3bttHU1IQoiuTzeeLxONFoFJ/Px8zMDIVCgZaWFqxWK6FQiEAgQCaTIRaLMT4+jtPpZHBwkMnJSfR6PRMTE5jNZgYHB/H5fITDYfR6Pf39/QwPD2O329m4cSPBYJDLly+TyWTQ6/W0tbVRVVWFTqejq6uL0Whkfn6ehoYGo9FIJBLB7/fT2NhIPp8nl8uxYsUKLBYLkUiEkZERVq5cidPppKamBovFQj6fZ3R0lHg8TjQaxWQy0dHRgcfjwe12s2HDBoqLi8lkMrhcLiKRCOFwGK/Xi81mIxwO4/V6sVgsBAIBAoEAkUiEcDjMyZMn8Pl8BAIBQqEQdXV1NDQ0YDAYmJub4/Tp05jNZvx+P5FIBJfLRTAYJBaL0dzcjMViwWq1Mj09jcfjwefzMTIyQltbG2vWrKG9vR2Hw0E4HMZgMNDQ0MDIyAjRaJRQKESj0WB0dJT29nYKhQKxWIyqqiqWLFmCx+PB4/Hgdrupra0lk8nQ3NzcL/sJBAJBnI9UKvXfN03zX7bb7f8czWbzXzEMw7/AbDb/3TAM/0u5XP7nXC7nP0ulUv8jq9Xq/3z58uV/XygU/ncmJib+f0ql0v+Nw8PD/9lsNvtfcblc/jeGYfif7Ha7/7Xdbvd/dHV1/e+GYfif6+vr/1vDMPx3qVQq/2O1Wv1/Pj4+/nd5eXn/IAiC/52Wlpa/j8Vi8T81DMP/0Wg0/7df+7Vf/Z8KhUL/7iZNmvyfYRh+X7PZ7H9Xq9X/f2NjY/+N1Wp1fxKJRJ4KhUL/yc7Ozv9bKBT6P+7u7v5FMBj8X+3t7f+1Wq3+n2ma5v+bTCb/p1qt9n9YLBb/x8HBwf9ZrVb/b5VK5X/T2Nj4P7fb7f+5c+fO/y0UCv0fUqkUqVSKCxcukE6nGBoaotVqCQQCeDwePB4PmUyG8vJyPB4PLpeLQqFAfX09NpsNl8uFYRj09PSgVqvJ5/PY7XaCwSBDQ0P4/X7MZjMmk4mbN2+SSqWw2Ww4HA7Wrl1LPB6nqqqKVCrF6OgoLS0t6PV6AoEATU1NDA0NkU6n0el0mM1mxsbGsNlsXL58mWQySTAYxGQyMTExQTqdJplMMjExQWdnJ9FoFJfLRSwWI51Ok8lk8Hg86HQ6JBIJbDYbdrud7u5uIpEIoVAIp9OJxWKhsbERrVZLTU0NdXV1jI+PE4lE8Pv9eL1eHn74YbRaLVarFb1ez/j4OCaTifb2durr63E4HBQKBebm5rDb7VitVux2O4FAgJqaGqLRKL29vdjtdhYWFjCbzWi1WnK5HOFwGJPJhNlsJpvN4vF4uH//PlarlXQ6jcfjQRAEcDgctLa2YjQaUSqV6PV6hoaGiMViGI1GwuEwAwMDeDwetFotjY2NaDQa0uk08Xicvr4+2tvb6e7uJhgMkk6nSSQSLFmyhHA4zLJly2hra0On0+H1eqmoqGBwcJCVK1dy4sQJQqEQfr+fTCbD1NQUDoeD+vp6uru7MRqNlMtl4vE4IyMj3Lx5k2QyyfDwML29vRQKBRKJBIODg9jtdgwGA8PDw7S0tOB0OhkaGmJoaAi1Wk0ikSCXy6FSqWhvb8disRAKhQgGg4TDYQwGAwaDAa/Xi0AgQEtLC9FolEAgQDgcJhQKMTo6SjKZxG63Y7PZkMlkSCQSbN68mXQ6TTAYxO12o1Qq0Wq1hEIhuru7cbvdxGIxPB4PY2Nj1NfXU1FRQTgcJh6PE4/HsVgsFAoFzpw5Q1dXF6lUikAgwPPPP4/FYqGgoIBQKMTw8DC1tbWUSiVOnjxJMBjkwoULWltbcblc8Hg8AIDNZmN8fJxoNIrP58NisTA7O4vD4aC7u5t8Po/FYqGrq4twOEw+n2f58uUcPnyY/v5+KioqaG5u5u233+bbb7/l7NmzvP3227S1tbFq1SrWr1/Pnj17sNlsPPbYY9TU1DA0NMS2bdv49NNP2bx5M/v27ePJJ5+krKyMkZERRkZGqKurY3x8HIfDwdzcHO3t7QSDQd577z0uXryIxWLhjTfewOl0kk6n6e7upqWlhVAoRCwWw2Kx4PV6sVgsHD16lPb2doLBIMuXL8dkMvHII4/wwgsvkE6nUSqVvP7667jd7p/cBAKBYBpAT09P/4tQKPS/r1ar/0dLS8v/fDab/V8qlcr/1jAM/1PDMHzP5XL5P2u1Wv0/RqPR/0M2m/0fsVgs/kutVvvf2tvb/7tCoVC9+5VK5X9Qq9X/t16v/18KhUL/T1VVVf+3XC7nP5VKpf4fQRAE/j+DwWAfGobh/7+5ufk/FQoF/0tfX98/F4vF/1G1Wv2/7e7u/n+vVqv/V6VS+a9SqfS/VavV/5lhGP6v7e3t/0utVvv/Njc3/3+5ubn/0GQy+V8qlcr/0DAMP6jVav+P1tbW/5ubm5v/f7PZ7P/U3t7+f1utVv/PQqHQ/6mhoWH+22+//V8qlcr/2Wg0+g8UCkX/h1QqRaVS4YUXXmBmZobm5mZ8Ph/x
-/6mqqqK+vh6tVks2m8VqtdLa2kqn05FKpQwPDzM7O4tSqcQwDJqamjCbzTi
-dTlwuF4VCgUKhgMlkYmRkhMnJSYLBIA6HA5vNhsvlwu12U1paSjQaZXx8
-nImJCbRaLVarlXA4jMvlIhaL8fzzz6PRaEilUkxNTTE4OEg4HKalpYWK
-igq8Xi+RSITm5ma2bt2KxWLh4sWLiMViFAoFfD4fTqfTtMvl8jkKhQKBQ
-GCxWEhMTGBubo7JyUn8fj+dTocoiuj1elyuF5PJRCqVwmg0UldXh0Kh
-gNVqJZ/PY7PZKJVKcLlc6HQ6AoEAoVCIWCxGOBymUCjgdrsZGRlh27Zt
-mM1mZmdn8fv9qNVqjEajFItFwuEwIyMjSCQSzGYz5XIZs9mMTCbD6XSy
-dOlS0uk0JpOJXC6Hy+VifHwco9HIqVOnmJ2dxeFwoNVqCQQCxONxAoEA
-Wq0WgUBAIBDA4XCQTCYxGo2Mj48jCAI+n4+amhr6+vrQ6/XI5XJUVFTg
-dDppbm4mFApRW1vLsmXL8Pl8fPDBB8zMzPDQQw/x5ptvYrfbee+995ib
-m6OhoYGJiQmGh4eJRCIkEgkKhQK1Wo1SqcRiMTAajSgUCgwGA06nE6VS
-STQaxWq1oFarUSqVdHV1MTExQXt7O36/H6VSiUAgQCAQIBgMUlBQQDab
-Ra1Wk0wmGRoaolgsYrfbcblc8Pl8QqEQBQUF5HI5Hn74YdxuNzqdDp1O
-R3d3N6FQiHg8zuzsLIVCgdlsRiaT4XK58Pl8/P73v+fQoUP4/X7sdrsI
-goDZbObSpUtEo1G0Wi0Gg4FUKsWtW7cYGhri448/5v3338dgMHDv3j2O
-HDlCTU0N4XCYXC7H7/cTi8XQarUEAgEUCgXC4TB2u51SqYTRaKRQKODz
-+QyHw8jlcphMJmKxGBqNBpPJREdHB4FAgLm5OQKBAIWFhRSLRUKhENFo
-lKamJqampnA4HPj9frxeL6FQiMnJSaLRKAcPHmTlypXs2bOH3t5eJBIJ
-+vr6MJlMFAoFGRkZeL1eQqEQ8XicWCyG0+mko6ODQqFAa2srdrudTCbD
-aDRiNpvx+/0MDQ0RiUT4+OOPmZmZQa/X4/F4mJmZoVgs4nK56O3txWQy
-kclk0Gq1LC4uUldXh9lsZnR0lDfffJPnn3+e0dFRqqqqmJ2dJZfL4XA4
-6O/vp66uDpfLhcfjQaVS8de//pX333+f9vZ2PB4Pvb29RCIR4vE4IyMj
-VFdXU1NTw5EjR3A4HIRCIZqbmwGorq7GYrHgdrsJh8PMz8/jcDjweDz0
-9/fjdrspFov09PSQy+UwGAxUVVVhMBjweDzMz88Ti8VwuVx4PB60Wi2B
-QIBQKMRHH33E0NAQExMTVFRU4Ha7CQaD2O12AoEAtbW1hMNh8vk8U1NT
-5HI5xsbGsNvtRCIRAoEAc3NzfPnll2i1WqLRKMFgEJfLhdvtJhqNEolE
-eOaZZ3j99ddJpVIkEgna2tr4+OOPGRoa4r777mN0dJTDhw/jdrtJJBK8
-8MILWCwWRkZGSCQS+Hw+VqxYgcfj4dixY6xYsYIzZ87Q0NDA2NgYdrsd
-g8EAAE6dOkUkEsFqtSIQCHD8+HHS6TQ2m421a9f+4SYQCAQTLJfL5f+X
-WCz2P9PpdP/TcDj8r8vlcv8bQRAE/ksymfz/0jAM/6fZbPZ/ut1u/4+W
-lpb/5eDg4H+oVCr/Xw0NDb+/ZrP5n7OysvK/Wq1W/5PdbvffF4vF/8Bq
-tfr/1Wg0/19zc/P/VVtb2/8rFAp/0NLS8n+tra39D0ql0v9nW1vb/0wp
-lUr/u1gs9r+Njo7+36tWq/8bPp/P/9w0Tf+7+vr6/6nRaP5nURT53x6P
-x/8dwzD8v0ql0v+XWCz2P8FgkJaWFurr6xmNRtra2mhtbaWhoYHFixfT
-3NwcwzB4vV6sVitDQ0M4nU6CwSCdnZ1UVVVhNBrJ5XJotVqCwSCdnZ2M
-j49jtVpRKpVotVqWLFmC0WgkkUjQ3Nxc+J6YmGB4eBiDwcDc3ByFQgG/
-349Op0OpVMLn89HS0oLdbsfpdGIYBmNjY7S1tWF0OpFKpRgcHKStrQ2X
-y0UikcBms+HxeJBLpYjFYmi1WhKJBIcOHcLhcGB0dJT29nYKhQK7d+9m
-dHQUs9nMwsICxWIRm82GQqFAfX09nU5HKBSiUCjgdrupqanB6/WiUCiQ
-SqVotVp6enqoVqsEAgFaW1vJZrM4HA4ikQhCoRCPPfYYg8EAAE6dOsX4
-+Dgmk4lSqUSr1WK1WlGpVFRVVTE3N8fY2BjDw8P4fD6mp6dpa2vD7/eT
-zWapq6vD4XCgUCjQ6/XU1NQQDAaJx+P09PTQ0NCA2+3G7Xbj9XopKSmh
-p6eHtrY2AoEAqVSKTqdDoVCwY8cORkdHsdlsdHd3Mzk5ydDQEOFwGIvF
-QjqdJhaLMTQ0RDAYxGQyUVBQQKPRoNVq6e3tJRgM0traSiQSYXFxkWKx
-SC6XI51O4/X6mJ+fR6fTUVNTQzqdZmFhgUgkglwuZ3l5mXQ6jcViYW1t
-jcHBQYLBIIODg5TLZeLxOB6Ph+rqavR6PZOTk4RCIWKxGMPDw/j9fjqd
-jpGREdbW1nA6nSQSCQqFAtFoFMFgkG3btjE7O0t9fT1ms5l8Ps+xY8eI
-xWK89NJLxGIx9u3bx+eff87bb79NMBjk0qVL+P1+PB4PdrudqqoqFhYW
-KJVK2O12YrEYfX19TExMUFdXR1NTE7m5uWg0GmZmZigWi0QiEaxWK9Fo
-FIlEgsHBQXQ6HVarlXQ6zYULF4jFYhQKBUKhELlcjkQiwZ49e7BYLLS3
-t7N3717a2trw+/2MjIywfv16Vq9eTaFQIJ1OMzs7S3d3N06nk0KhgMfj
-we12o9FoUCgU0Ov1vP3221RUVNDT08Nzzz1HKBQik8nQ1NREJBJhZGSE
-zs5OQqEQFRUV3HnnnRQKBVqtFpPJhM1mI5vN4nA46OnpQavV4nQ6sVgs
-OJ1O3nrrLfr7+5mYmOD9999n1apV7N69m5aWFmKxGDMzM4TDYdrb23G7
-3ZhMJmKxGIODg4TDYbq7u5mYmODtt99m2bJlvPPOO7z++uvY7Xbeffdd
-AoEA+XyeyclJHn30UT7//HN8Ph8jIyO0tbVhs9no7u4mk8lgs9nQ6XQ0
-Njby4IMP8vDDD/O3v/2NVCpFNBrl0KFDlMtlpqamOHXqFJFIhGQyyf79
-+5mbm0OtVtPV1cWwYcM4c+YM8/PzWCwWqqurGR8fJx6P09DQgNfr5dCh
-Q3R1dTFt2rT/1CYQCATTCNrY2PjDcrn8Pzs6Ov7H5XL5f6nVav8rCwsL
-/5fFYvF/V6vV/6dWq/1/R0dH/2+j0fg/CoXC/0Mqlfr/0Wg0/5uBgYH/
-sVQq9X9qbm7+H4VC4X+m1Wp1/9fOzs7/b5VK5X9ms9n8H0mS/6lWq/2/
-W1tb/6fVavV/9ff3/5dSqfQ/1Wq1+v+tWq3+v7q7u/9PoVD4n9psNv8t
-k8nkP6fVavV/otPp/McKhUL/l1qt9j9Xq1X/x2az+f/b4ODg/7Narfa/
-stls/lcYhuH/8Xg8/t/T6XT/93g8/t9KpfI/5nI5bm5ubvyfk5OT/6e2
-trb/j1qt9j8KhcL/XqPRf2VtbW3/l6Zp/q/VavW/3d3d/X8KhcL/nc1m
-89+y2Wz+d5VK5X8cHBz8v3W73f+naZr/H0mSsFgsfPzxx5w/f56xY8fy
-5ptv0tnZicfjweFwkEgkcDgc6HQ6HA4HbrcbjUZDKBQik8lQKpVks9kc
-DgctLS0oFAoajQYejwe1Wk2pVMLn81FSUkI2m8VoNJJOp4lEItTV1eF2
-u2lpaeHxeJicnKShoYFsNou1a9cyNTVFV1cXhUKBs2fPEolE8Pv9QqEQ
-5XIZm82GQqFgsVhQKBRkMhmmpqbo7u6ms7OTQqHA0NAQ4XCYXq+npaUF
-v9+P3W5HpVJx7NgxhoaGGB8fR6/XMzQ0xJUrV1i4cCH5fJ5QKESv19PU
-1MT4+Dgul4vJyUn6+vpwOBxYrVY2bdrEyMgIDoeDVCpFOBymoaGBQqGA
-0+nE4XAwMDCARqNhbGwMr9dLMBgkEAjQ0dFBMBikrKyMffv2MTMzQ2tr
-K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
+          <div class="jax-badge">
+            <div class="dog">🐶</div>
+            <div class="name">Jax</div>
+          </div>
         </div>
 
-        <div class="bullet reveal"><div class="dot"></div><div><strong>Customer Portal</strong><br><span style="color:#64748b">Receipts, order tracking, route visibility, delivery, and messaging.</span></div></div>
-        <div class="bullet reveal"><div class="dot"></div><div><strong>Staff Portal</strong><br><span style="color:#64748b">Order lookup, follow-up tasks, service, and scheduling.</span></div></div>
+        <div class="bullet reveal"><div class="dot"></div><div><strong>Customer Portal</strong><br><span style="color:#64748b">Receipts, order tracking, delivery scheduling, messaging, and claims.</span></div></div>
+        <div class="bullet reveal"><div class="dot"></div><div><strong>Staff Portal</strong><br><span style="color:#64748b">Orders, CRM, payroll, commissions, service, and follow-ups.</span></div></div>
         <div class="bullet reveal"><div class="dot"></div><div><strong>Owner Portal</strong><br><span style="color:#64748b">KPIs, bottlenecks, heatmap alerts, visibility, and oversight.</span></div></div>
 
         <button class="cta reveal">Switch portal views above</button>
@@ -875,6 +990,14 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
         <div id="owner" class="portal hide"></div>
       </div>
     </div>
+  </div>
+
+  <div class="jax-helper">
+    <div class="jax-bubble">
+      <strong>Jax says</strong>
+      Try the login screen first — it makes the prototype feel much more like a real app.
+    </div>
+    <div class="jax-avatar">🐶</div>
   </div>
 
   <script>
@@ -900,23 +1023,25 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
         destination: "Customer Home",
         messageFrom: "PJs Delivery Team",
         messageText: "We can deliver as early as Thursday or Friday. Tap below to reserve the day that works best for you.",
+        claimTitle: "Furniture Claim",
+        claimText: "Start a furniture warranty or damage claim, upload photos, and track status without calling the store first.",
         steps: [
           ["Order Placed", true, "Mar 4"],
           ["Confirmed", true, "Mar 5"],
           ["At Vendor", true, "Mar 11"],
           ["In Transit", true, "Mar 16"],
           ["Schedule Delivery", false, "Up next"],
-          ["Delivered", false, "Pending"],
+          ["Delivered", false, "Pending"]
         ],
         actions: ["Thursday, Mar 19","Friday, Mar 20","Message Store"],
         tiles: [
           ["📄","Receipts","Digital copies whenever you need them.","blue"],
           ["🗓","Delivery","Pick the best day for your home setup.","green"],
           ["✉","Messages","Skip the phone tag and reach our team fast.","amber"],
-          ["🛡","Support","Questions before arrival? Start here.","rose"],
+          ["🛋","Furniture Claim","Start a warranty or damage claim with photos.","rose"]
         ],
         receipt: [["Sectional", "$1,499.00"],["Delivery", "$129.00"],["Protection Plan", "$149.00"]],
-        total: "$1,777.00",
+        total: "$1,777.00"
       },
       daniel: {
         label: "Daniel • Mattress Support",
@@ -939,23 +1064,25 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
         destination: "Customer Home",
         messageFrom: "PJs Support",
         messageText: "Thanks again for shopping with us. Need help with comfort questions or warranty info? You can handle it right here.",
+        claimTitle: "Mattress Claim",
+        claimText: "Submit a mattress warranty, comfort, or defect review request with photos and purchase details.",
         steps: [
           ["Order Placed", true, "Feb 25"],
           ["Confirmed", true, "Feb 25"],
           ["Out for Delivery", true, "Mar 2"],
           ["Delivered", true, "Mar 2"],
           ["Care + Support", false, "Available now"],
-          ["Future Receipt Access", false, "Anytime"],
+          ["Future Receipt Access", false, "Anytime"]
         ],
         actions: ["View Care Guide","Upload Photos","Message Support"],
         tiles: [
           ["📄","Receipt","Always available for records or financing needs.","blue"],
           ["🛡","Protection","See what coverage came with your purchase.","green"],
-          ["🛋","Care Guide","Break-in period and mattress care tips.","amber"],
-          ["✉","Support","Upload photos if something needs attention.","rose"],
+          ["🛏","Mattress Claim","Start a warranty or comfort-related claim.","amber"],
+          ["✉","Support","Upload photos if something needs attention.","rose"]
         ],
         receipt: [["Queen Hybrid Mattress", "$899.00"],["Delivery + Setup", "$99.00"],["Mattress Protector", "$79.00"]],
-        total: "$1,077.00",
+        total: "$1,077.00"
       },
       amber: {
         label: "Amber • Pickup Ready",
@@ -978,23 +1105,25 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
         destination: "Pickup Counter",
         messageFrom: "PJs Front Desk",
         messageText: "Your bed is ready. Please confirm whether you'd like to pick up today at 3:30 PM or tomorrow at 10:45 AM.",
+        claimTitle: "Furniture Claim",
+        claimText: "Need help after pickup? Customers can start a furniture claim with photos, notes, and follow-up status.",
         steps: [
           ["Order Placed", true, "Mar 10"],
           ["Confirmed", true, "Mar 10"],
           ["Transferred to Store", true, "Mar 14"],
           ["Pickup Ready", true, "Mar 16"],
           ["Confirm Pickup", false, "Up next"],
-          ["Picked Up", false, "Pending"],
+          ["Picked Up", false, "Pending"]
         ],
         actions: ["Pick Up Today","Pick Up Tomorrow","Need Another Day"],
         tiles: [
           ["📦","Pickup Info","See hours, location, and what to bring.","blue"],
           ["📄","Receipt","Pull your receipt up at arrival if needed.","green"],
           ["✉","Messages","Let us know if your schedule changes.","amber"],
-          ["🛡","Store Policies","Helpful reminders before pickup day.","rose"],
+          ["🛋","Furniture Claim","Start a warranty or damage claim after pickup.","rose"]
         ],
         receipt: [["Navi Storage Bed", "$699.00"],["Pickup Hold", "$0.00"],["Assembly Hardware Kit", "$29.00"]],
-        total: "$728.00",
+        total: "$728.00"
       }
     };
 
@@ -1004,10 +1133,11 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
       { zone: "Service", title: "1 photo claim unresolved", level: "Warm", cls: "orange" },
       { zone: "Messages", title: "Response times healthy", level: "Stable", cls: "green" },
       { zone: "Pickup", title: "All customers confirmed", level: "Stable", cls: "blue" },
-      { zone: "Receiving", title: "Truck processing on pace", level: "Stable", cls: "" },
+      { zone: "Receiving", title: "Truck processing on pace", level: "Stable", cls: "" }
     ];
 
     let currentScenario = "paige";
+    let selectedPortal = "customer";
 
     function statusPill(tone, text){
       return `<div class="pill ${tone}">${text}</div>`;
@@ -1030,7 +1160,99 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
       items.forEach(el => observer.observe(el));
     }
 
-    function renderCustomer(){
+    function loginScreenMarkup(portalName, badgeText){
+      return `
+        <div class="phone-shell reveal">
+          <div class="phone">
+            <div class="top">
+              <div class="notch"></div>
+              <div class="status"><span>9:41</span><span>${badgeText}</span></div>
+              <div class="head">
+                <div>
+                  <div class="brand">PJs Furniture & Mattress</div>
+                  <div class="title">${portalName} Login</div>
+                </div>
+                <div class="avatar">PJ</div>
+              </div>
+            </div>
+
+            <div class="login-shell">
+              <div class="login-card reveal">
+                <div class="login-brand">
+                  <div>
+                    <div class="small" style="color:#64748b">Portal Access</div>
+                    <div style="font-size:28px;font-weight:800;color:#10213a;margin-top:6px">Welcome to PJs Portal</div>
+                    <div class="muted" style="margin-top:8px">Sign in to view your dashboard, messages, orders, claims, or reporting tools.</div>
+                  </div>
+                  <div class="logo-mini">🐶</div>
+                </div>
+
+                <div class="portal-grid">
+                  <button class="portal-card ${selectedPortal === 'customer' ? 'active' : ''}" data-login-portal="customer">
+                    <h4>Customer Portal</h4>
+                    <p>Receipts, tracking, delivery scheduling, and claims.</p>
+                  </button>
+                  <button class="portal-card ${selectedPortal === 'staff' ? 'active' : ''}" data-login-portal="staff">
+                    <h4>Staff Portal</h4>
+                    <p>Orders, CRM, payroll, commissions, and service tasks.</p>
+                  </button>
+                  <button class="portal-card ${selectedPortal === 'owner' ? 'active' : ''}" data-login-portal="owner">
+                    <h4>Owner Portal</h4>
+                    <p>KPIs, operational watchlists, and executive visibility.</p>
+                  </button>
+                </div>
+
+                <div class="field">
+                  <label>Email or Username</label>
+                  <input type="text" value="${selectedPortal === 'customer' ? 'paige@example.com' : selectedPortal === 'staff' ? 'steven@pjsportal.com' : 'owner@pjsportal.com'}" />
+                </div>
+
+                <div class="field">
+                  <label>Password</label>
+                  <input type="password" value="password" />
+                </div>
+
+                <div class="login-actions">
+                  <button class="primary-btn" data-enter-portal="${selectedPortal}">Sign In</button>
+                  <button class="ghost-btn">Need Help?</button>
+                </div>
+
+                <div class="demo-note">
+                  <strong style="display:block;color:#10213a;margin-bottom:6px;">Demo note</strong>
+                  This is a concept login for presentation purposes only. It is not connected to your real systems yet.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function bindLoginHandlers(){
+      document.querySelectorAll("[data-login-portal]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedPortal = btn.dataset.loginPortal;
+          renderAll();
+          applyReveal();
+        });
+      });
+
+      document.querySelectorAll("[data-enter-portal]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.enterPortal;
+          document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+          const selectedTab = document.querySelector(`.tab[data-target="${target}"]`);
+          if(selectedTab) selectedTab.classList.add("active");
+          document.querySelectorAll(".portal").forEach(p => p.classList.add("hide"));
+          const section = document.getElementById(target);
+          if(section) section.classList.remove("hide");
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+          applyReveal();
+        });
+      });
+    }
+
+    function renderCustomerPortalContent(){
       const s = customerScenarios[currentScenario];
 
       const tiles = s.tiles.map(t => `
@@ -1063,8 +1285,8 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
         <div class="mini"><strong>${m[0]}</strong><span style="font-size:12px;color:#64748b">${m[1]}</span></div>
       `).join("");
 
-      document.getElementById("customer").innerHTML = `
-        <div class="phone-shell reveal">
+      return `
+        <div class="phone-shell reveal" style="margin-top:16px">
           <div class="phone">
             <div class="top">
               <div class="notch"></div>
@@ -1195,6 +1417,36 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                 </div>
               </div>
 
+              <div class="card reveal" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Warranty & Claim Center</div>
+                    <div class="section-sub">Customers can start the right claim flow without calling the store first.</div>
+                  </div>
+                  <div class="pill blue">Self-Service</div>
+                </div>
+                <div class="row2">
+                  <div class="tile">
+                    <div class="icon">🛋</div>
+                    <h4>Furniture Claim</h4>
+                    <p>Upload photos, describe the issue, and track claim status for furniture purchases.</p>
+                  </div>
+                  <div class="tile rose">
+                    <div class="icon">🛏</div>
+                    <h4>Mattress Claim</h4>
+                    <p>Submit a mattress warranty request, comfort concern, or defect review with photos.</p>
+                  </div>
+                </div>
+                <div class="card" style="margin-top:14px;background:#f8fafc">
+                  <div style="font-size:14px;font-weight:800">${s.claimTitle}</div>
+                  <div class="muted" style="margin-top:8px">${s.claimText}</div>
+                  <div class="btnrow" style="margin-top:14px">
+                    <button class="smallbtn dark">Start Furniture Claim</button>
+                    <button class="smallbtn">Start Mattress Claim</button>
+                  </div>
+                </div>
+              </div>
+
               <div class="nav reveal">
                 <button class="item active">⌂</button>
                 <button class="item">◫</button>
@@ -1206,11 +1458,18 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
           </div>
         </div>
       `;
+    }
 
-      document.querySelectorAll(".scenario-btn").forEach(btn => {
+    function renderCustomer(){
+      document.getElementById("customer").innerHTML =
+        loginScreenMarkup("Customer Portal", "Secure Login") +
+        renderCustomerPortalContent();
+
+      document.querySelectorAll("[data-scenario]").forEach(btn => {
         btn.addEventListener("click", () => {
           currentScenario = btn.dataset.scenario;
           renderCustomer();
+          bindLoginHandlers();
           applyReveal();
         });
       });
@@ -1218,7 +1477,8 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
 
     function renderStaff(){
       document.getElementById("staff").innerHTML = `
-        <div class="phone-shell reveal">
+        ${loginScreenMarkup("Staff Portal", "Sales + Service")}
+        <div class="phone-shell reveal" style="margin-top:16px">
           <div class="phone">
             <div class="top">
               <div class="notch"></div>
@@ -1241,7 +1501,7 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                   </div>
                   <div class="avatar" style="background:#111827;color:#fff">S</div>
                 </div>
-                <div class="muted" style="margin-top:10px">Everything your team needs for orders, deliveries, receipts, customer follow-up, and day-to-day coordination in one workspace.</div>
+                <div class="muted" style="margin-top:10px">Everything your team needs for orders, deliveries, receipts, customer follow-up, payroll visibility, CRM activity, and service follow-up in one workspace.</div>
 
                 <div class="dark-card reveal" style="margin-top:14px">
                   <div class="split">
@@ -1264,8 +1524,64 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                 <div class="row2">
                   <div class="tile"><div class="icon">📦</div><h4>Orders</h4><p>Lookup, status, notes, and exceptions.</p></div>
                   <div class="tile green"><div class="icon">🚚</div><h4>Deliveries</h4><p>Schedules, routes, and confirmations.</p></div>
-                  <div class="tile blue"><div class="icon">✉</div><h4>Messages</h4><p>Customer communication history in one place.</p></div>
+                  <div class="tile blue"><div class="icon">👥</div><h4>CRM</h4><p>Customer profiles, notes, follow-ups, and lead history in one place.</p></div>
                   <div class="tile rose"><div class="icon">🛠</div><h4>Service</h4><p>Claims, photos, and issue tracking.</p></div>
+                </div>
+              </div>
+
+              <div class="card reveal" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Payroll & Commissions</div>
+                    <div class="section-sub">Staff can track pay progress, booked commission earnings, and payout visibility.</div>
+                  </div>
+                  <div class="pill blue">Live Pay</div>
+                </div>
+
+                <div class="row2">
+                  <div class="tile blue">
+                    <div class="icon">💵</div>
+                    <h4>This Pay Period</h4>
+                    <p>$2,480 booked commission estimate.</p>
+                  </div>
+                  <div class="tile green">
+                    <div class="icon">📈</div>
+                    <h4>Month-to-Date</h4>
+                    <p>$6,930 earned from sold deals this month.</p>
+                  </div>
+                </div>
+
+                <div class="task" style="margin-top:14px;background:#f8fafc">
+                  <div class="split"><h4>Commission Breakdown</h4><div class="pill amber">Projected</div></div>
+                  <p>Track sold tickets, commission rates, adjustments, and payout timing in one place.</p>
+                </div>
+              </div>
+
+              <div class="card reveal" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">CRM</div>
+                    <div class="section-sub">A lightweight customer relationship dashboard for staff follow-up.</div>
+                  </div>
+                  <button class="smallbtn">Open CRM</button>
+                </div>
+
+                <div class="row2">
+                  <div class="tile">
+                    <div class="icon">📇</div>
+                    <h4>Customer Profiles</h4>
+                    <p>See contact info, purchase history, notes, and open issues.</p>
+                  </div>
+                  <div class="tile amber">
+                    <div class="icon">⏰</div>
+                    <h4>Follow-Ups</h4>
+                    <p>Track open callbacks, quotes, unsold leads, and reminders.</p>
+                  </div>
+                </div>
+
+                <div class="task" style="margin-top:14px;background:#f8fafc">
+                  <div class="split"><h4>Today’s CRM priorities</h4><div class="pill blue">3 Due</div></div>
+                  <p>Call back sectional leads, review quote follow-ups, and check repeat-customer outreach.</p>
                 </div>
               </div>
 
@@ -1277,16 +1593,19 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                   </div>
                   <div style="font-size:14px;font-weight:800;color:#334155">View All</div>
                 </div>
+
                 <div class="task">
                   <div class="split"><h4>3 customers need delivery confirmation</h4><div class="pill amber">High Priority</div></div>
                   <p>Updated 12 minutes ago</p>
                   <div class="act"><button class="smallbtn dark">Open</button><button class="smallbtn">Assign</button></div>
                 </div>
+
                 <div class="task">
                   <div class="split"><h4>2 service issues waiting on photos</h4><div class="pill blue">Needs Follow-Up</div></div>
                   <p>Updated 12 minutes ago</p>
                   <div class="act"><button class="smallbtn dark">Open</button><button class="smallbtn">Assign</button></div>
                 </div>
+
                 <div class="task">
                   <div class="split"><h4>1 special order delayed at vendor</h4><div class="pill rose">Exception</div></div>
                   <p>Updated 12 minutes ago</p>
@@ -1324,7 +1643,8 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
       `).join("");
 
       document.getElementById("owner").innerHTML = `
-        <div class="phone-shell reveal">
+        ${loginScreenMarkup("Owner Portal", "Executive View")}
+        <div class="phone-shell reveal" style="margin-top:16px">
           <div class="phone">
             <div class="top">
               <div class="notch"></div>
@@ -1366,14 +1686,17 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                   </div>
                   <button class="smallbtn">Full Report</button>
                 </div>
+
                 <div class="task">
                   <div class="split"><h4>Delivery bottleneck</h4><div class="pill amber">Action Needed</div></div>
                   <p>4 white-glove deliveries still need customer confirmation.</p>
                 </div>
+
                 <div class="task">
                   <div class="split"><h4>Vendor delay</h4><div class="pill rose">Delayed</div></div>
                   <p>Collins modular order has aged 18 days beyond ETA.</p>
                 </div>
+
                 <div class="task">
                   <div class="split"><h4>Response time</h4><div class="pill green">Healthy</div></div>
                   <p>Average follow-up time improved to 19 minutes today.</p>
@@ -1388,6 +1711,7 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                   </div>
                   <div style="font-size:20px">▥</div>
                 </div>
+
                 <div class="bars">
                   <div class="barwrap"><div class="bar" style="height:42%"></div><div class="label">Mon</div></div>
                   <div class="barwrap"><div class="bar" style="height:68%"></div><div class="label">Tue</div></div>
@@ -1397,6 +1721,7 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
                   <div class="barwrap"><div class="bar" style="height:96%"></div><div class="label">Sat</div></div>
                   <div class="barwrap"><div class="bar" style="height:88%"></div><div class="label">Sun</div></div>
                 </div>
+
                 <div class="row2" style="grid-template-columns:repeat(3,1fr)">
                   <div class="tile"><h4 style="font-size:22px;margin:0">92%</h4><p>On-Time</p></div>
                   <div class="tile"><h4 style="font-size:22px;margin:0">19m</h4><p>Response</p></div>
@@ -1438,9 +1763,38 @@ K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
       `;
     }
 
-    renderCustomer();
-    renderStaff();
-    renderOwner();
+    function bindLoginHandlers(){
+      document.querySelectorAll("[data-login-portal]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedPortal = btn.dataset.loginPortal;
+          renderAll();
+          applyReveal();
+        });
+      });
+
+      document.querySelectorAll("[data-enter-portal]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.enterPortal;
+          document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+          const selectedTab = document.querySelector(`.tab[data-target="${target}"]`);
+          if(selectedTab) selectedTab.classList.add("active");
+          document.querySelectorAll(".portal").forEach(p => p.classList.add("hide"));
+          const section = document.getElementById(target);
+          if(section) section.classList.remove("hide");
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+          applyReveal();
+        });
+      });
+    }
+
+    function renderAll(){
+      renderCustomer();
+      renderStaff();
+      renderOwner();
+      bindLoginHandlers();
+    }
+
+    renderAll();
     applyReveal();
 
     const tabs = document.querySelectorAll(".tab");
