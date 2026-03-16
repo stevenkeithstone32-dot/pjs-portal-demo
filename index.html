@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PJs Portal Mobile Showcase</title>
+  <style>
+    :root{
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --line:#e5e7eb;
+      --text:#0f172a;
+      --muted:#64748b;
+      --dark:#111827;
+      --dark2:#1f2937;
+      --blue:#eff6ff;
+      --green:#ecfdf5;
+      --amber:#fffbeb;
+      --rose:#fff1f2;
+      --orange:#fff7ed;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:linear-gradient(to bottom,#f1f5f9,#ffffff);
+    }
+    .wrap{max-width:1180px;margin:0 auto;padding:24px}
+    .hero{text-align:center;margin-bottom:28px}
+    .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#64748b}
+    h1{font-size:clamp(30px,5vw,54px);line-height:1.05;margin:12px 0 0;font-weight:700}
+    .sub{max-width:840px;margin:16px auto 0;color:#475569;line-height:1.7}
+    .tabs,.scenario-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .tabs{margin-top:22px}
+    .scenario-tabs{margin-top:12px}
+    .tab,.scenario-btn{
+      border:1px solid var(--line);background:#fff;color:#475569;border-radius:999px;padding:12px 18px;
+      font-weight:600;cursor:pointer;transition:.2s ease;
+    }
+    .tab.active,.scenario-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:28px;align-items:start;margin-top:30px}
+    .panel,.card{
+      background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 4px 18px rgba(15,23,42,.05)
+    }
+    .panel{padding:24px;position:sticky;top:20px}
+    .panel h3{margin:0 0 12px;font-size:16px}
+    .panel p{color:#475569;line-height:1.7;margin:10px 0}
+    .bullet{display:flex;gap:12px;padding:15px;border:1px solid var(--line);border-radius:20px;margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--dark);margin-top:6px;flex:0 0 auto}
+    .cta{
+      margin-top:18px;width:100%;border:none;background:var(--dark);color:#fff;padding:14px 18px;border-radius:999px;
+      font-weight:700
+    }
+    .phone-shell{
+      width:390px;max-width:100%;margin:0 auto;background:#020617;padding:8px;border-radius:36px;
+      box-shadow:0 28px 70px rgba(15,23,42,.18), 0 0 0 1px rgba(148,163,184,.3)
+    }
+    .phone{
+      min-height:820px;background:#fff;border-radius:32px;overflow:hidden;border:1px solid var(--line)
+    }
+    .top{
+      background:linear-gradient(180deg,#020617,#111827);color:#fff;padding:14px 20px 16px
+    }
+    .notch{height:24px;width:140px;border-radius:999px;background:rgba(0,0,0,.6);margin:0 auto 12px}
+    .status{display:flex;justify-content:space-between;color:#cbd5e1;font-size:12px}
+    .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-top:12px}
+    .brand{font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#94a3b8}
+    .title{font-size:24px;font-weight:700;margin-top:4px}
+    .avatar{
+      width:42px;height:42px;border-radius:18px;background:rgba(255,255,255,.1);display:grid;place-items:center;
+      font-weight:700
+    }
+    .screen{background:var(--bg);min-height:734px;padding:14px;position:relative}
+    .card{padding:18px}
+    .dark-card{
+      background:linear-gradient(135deg,#020617,#111827 35%,#374151);color:#fff;border-radius:24px;padding:18px;position:relative;overflow:hidden
+    }
+    .dark-card:after{
+      content:"";position:absolute;inset:0;background:radial-gradient(circle at top right, rgba(255,255,255,.14), transparent 35%);
+      pointer-events:none;
+    }
+    .small{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.2em}
+    .dark-card .small{color:#cbd5e1}
+    .big{font-size:29px;line-height:1.1;font-weight:700;margin-top:8px;position:relative;z-index:1}
+    .muted{color:#64748b;line-height:1.65}
+    .dark-card .muted{color:#e2e8f0;position:relative;z-index:1}
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+    .btn,.btn2,.chip{
+      border:none;border-radius:999px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer
+    }
+    .btn{background:#fff;color:#111827}
+    .btn2{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18)}
+    .row2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+    .tile{border:1px solid var(--line);border-radius:24px;padding:14px}
+    .tile h4{margin:10px 0 0;font-size:14px}
+    .tile p{margin:4px 0 0;font-size:12px;color:#64748b;line-height:1.55}
+    .blue{background:var(--blue)}
+    .green{background:var(--green)}
+    .amber{background:var(--amber)}
+    .rose{background:var(--rose)}
+    .orange{background:var(--orange)}
+    .section-title{font-size:18px;font-weight:700;margin:0}
+    .section-sub{font-size:14px;color:#64748b;margin-top:3px}
+    .tracker{margin-top:14px;position:relative}
+    .tracker:before{
+      content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:#e2e8f0
+    }
+    .step{display:flex;gap:12px;position:relative;margin:14px 0}
+    .bubble{
+      width:24px;height:24px;border-radius:999px;display:grid;place-items:center;z-index:1;background:#fff;border:2px solid #cbd5e1;
+      font-size:12px;font-weight:700;color:#94a3b8;flex:0 0 auto
+    }
+    .bubble.done{background:#111827;border-color:#111827;color:#fff}
+    .step .meta{flex:1}
+    .step .meta .a{font-size:14px;font-weight:600}
+    .step .meta .b{font-size:12px;color:#94a3b8;margin-top:2px}
+    .pill{
+      font-size:12px;font-weight:700;border-radius:999px;padding:8px 12px;border:1px solid transparent;white-space:nowrap
+    }
+    .pill.green{background:#ecfdf5;color:#047857;border-color:#d1fae5}
+    .pill.blue{background:#eff6ff;color:#1d4ed8;border-color:#dbeafe}
+    .pill.amber{background:#fffbeb;color:#b45309;border-color:#fde68a}
+    .pill.rose{background:#fff1f2;color:#be123c;border-color:#fecdd3}
+    .receipt-row,.split{display:flex;justify-content:space-between;gap:12px}
+    .receipt-row{font-size:14px;margin-top:9px}
+    .progress{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden;margin-top:10px}
+    .progress > div{height:100%;background:#111827}
+    .nav{
+      position:sticky;bottom:12px;margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:999px;
+      box-shadow:0 16px 40px rgba(15,23,42,.12);padding:8px 10px;display:flex;justify-content:space-between;gap:8px
+    }
+    .nav .item{
+      width:46px;height:46px;border-radius:999px;border:none;background:transparent;color:#64748b;font-size:18px
+    }
+    .nav .item.active{background:#111827;color:#fff}
+    .metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .metric{border-radius:24px;padding:14px;border:1px solid var(--line)}
+    .metric .k{font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:#64748b}
+    .metric .v{font-size:30px;font-weight:800;margin-top:10px}
+    .bars{height:150px;display:flex;align-items:flex-end;gap:8px;margin-top:14px}
+    .barwrap{flex:1;text-align:center}
+    .bar{width:100%;background:#111827;border-radius:16px 16px 0 0}
+    .label{margin-top:8px;font-size:10px;color:#94a3b8}
+    .search{
+      display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:20px;background:#f8fafc;padding:14px;color:#94a3b8
+    }
+    .task{border:1px solid var(--line);border-radius:24px;padding:14px;margin-top:12px}
+    .task h4{margin:0;font-size:14px}
+    .task p{margin:6px 0 0;font-size:12px;color:#64748b}
+    .task .act{display:flex;gap:8px;margin-top:12px}
+    .smallbtn{
+      border-radius:999px;padding:9px 12px;font-size:12px;font-weight:700;border:1px solid var(--line);background:#fff
+    }
+    .smallbtn.dark{background:#111827;border-color:#111827;color:#fff}
+    .hide{display:none}
+    .icon{width:38px;height:38px;border-radius:16px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px}
+    .map{
+      margin-top:14px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#f8fafc
+    }
+    .map-art{
+      height:176px;background:linear-gradient(135deg,#e2e8f0,#f8fafc,#ffffff);position:relative
+    }
+    .road{position:absolute;background:#cbd5e1}
+    .road.h1{left:40px;right:40px;top:56px;height:2px;transform:rotate(8deg)}
+    .road.h2{left:64px;right:64px;top:100px;height:2px;transform:rotate(-12deg)}
+    .road.v1{left:58px;top:26px;bottom:26px;width:2px;transform:rotate(6deg)}
+    .road.v2{right:64px;top:22px;bottom:22px;width:2px;transform:rotate(-10deg)}
+    .ring{position:absolute;border:1px solid rgba(148,163,184,.6);border-radius:999px}
+    .ring.a{left:24px;top:24px;width:96px;height:96px}
+    .ring.b{right:28px;bottom:24px;width:76px;height:76px}
+    .pin{
+      position:absolute;padding:9px 12px;border-radius:999px;font-size:12px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.12)
+    }
+    .pin.store{left:28px;top:26px;background:#fff;border:1px solid var(--line);color:#334155}
+    .pin.dest{right:28px;bottom:26px;background:#111827;color:#fff}
+    .pin.live{left:44%;top:42%;transform:translate(-50%,-50%);border:4px solid #fff}
+    .pin.live.green{background:#10b981;color:#fff}
+    .pin.live.blue{background:#3b82f6;color:#fff}
+    .pin.live.amber{background:#f59e0b;color:#fff}
+    .map-body{background:#fff;padding:16px}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;text-align:center}
+    .mini{
+      border:1px solid var(--line);background:#f8fafc;border-radius:18px;padding:12px
+    }
+    .mini strong{display:block;font-size:17px}
+    .heat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+    .heat{
+      border-radius:24px;padding:14px;border:1px solid var(--line)
+    }
+    .heat .z{font-size:11px;text-transform:uppercase;letter-spacing:.18em}
+    .heat .t{font-size:14px;font-weight:700;margin-top:8px}
+    .heat .lvl{
+      display:inline-flex;margin-top:12px;border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.7);
+      font-size:11px;font-weight:700
+    }
+    @media (max-width: 960px){
+      .grid{grid-template-columns:1fr}
+      .panel{position:static}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">Portal Concept Showcase</div>
+      <h1>Mobile-first portal models for PJs</h1>
+      <div class="sub">
+        Designed to feel like an extension of the website: clean, premium, welcoming, locally owned, and simple to use on a phone.
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-target="customer">Customer</button>
+        <button class="tab" data-target="staff">Staff</button>
+        <button class="tab" data-target="owner">Owner</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <h3>What this shows</h3>
+        <p>These are concept models only. They are not connected to your store systems yet.</p>
+        <p>Each portal keeps the same brand family while changing the dashboard priorities for customers, staff, and owners.</p>
+        <p>The layouts are intentionally phone-friendly so your team can open and review them from an iPhone.</p>
+
+        <div class="card" style="margin-top:16px;background:#f8fafc">
+          <div class="eyebrow" style="letter-spacing:.2em">Brand direction</div>
+          <div style="font-size:20px;font-weight:700;margin-top:8px">Comfort. Curated. PJs Approved.</div>
+          <div style="font-size:14px;color:#475569;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
+          <div style="font-size:12px;color:#64748b;margin-top:10px">Modern, approachable, polished, and premium without feeling cold.</div>
+        </div>
+
+        <div class="bullet"><div class="dot"></div><div><strong>Customer Portal</strong><br><span style="color:#64748b">Receipts, order tracking, route visibility, delivery, and messaging.</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><strong>Staff Portal</strong><br><span style="color:#64748b">Order lookup, follow-up tasks, service, and scheduling.</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><strong>Owner Portal</strong><br><span style="color:#64748b">KPIs, bottlenecks, heatmap alerts, visibility, and oversight.</span></div></div>
+
+        <button class="cta">Switch portal views above</button>
+      </div>
+
+      <div>
+        <div id="customer" class="portal"></div>
+        <div id="staff" class="portal hide"></div>
+        <div id="owner" class="portal hide"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const customerScenarios = {
+      paige: {
+        label: "Paige • Sectional Delivery",
+        welcome: "Welcome back, Paige",
+        heroTitle: "Your living room upgrade is almost home.",
+        heroText: "Track your order, choose your delivery day, review your receipt, and message our team with the same premium, easy feel as the PJs website.",
+        orderName: "Caspian Town 2-Piece Sectional with Chaise",
+        orderStatus: "In Transit",
+        statusTone: "green",
+        eta: "Arriving Mar 20",
+        progress: 75,
+        orderNumber: "#10482",
+        deliveryType: "White-Glove",
+        nextStep: "Choose Your Day",
+        routeStatus: "Truck assigned • Stop 6 of 12",
+        routeMetrics: [["10:45","Window Start"],["6 / 12","Stops Today"],["18m","Away"]],
+        mapBlurb: "Your delivery is moving through today’s route. Live location and stop progress reduce inbound phone calls fast.",
+        mapPin: "Truck Live",
+        mapPinTone: "green",
+        destination: "Customer Home",
+        messageFrom: "PJs Delivery Team",
+        messageText: "We can deliver as early as Thursday or Friday. Tap below to reserve the day that works best for you.",
+        steps: [
+          ["Order Placed", true, "Mar 4"],
+          ["Confirmed", true, "Mar 5"],
+          ["At Vendor", true, "Mar 11"],
+          ["In Transit", true, "Mar 16"],
+          ["Schedule Delivery", false, "Up next"],
+          ["Delivered", false, "Pending"],
+        ],
+        actions: ["Thursday, Mar 19","Friday, Mar 20","Message Store"],
+        tiles: [
+          ["📄","Receipts","Digital copies whenever you need them.","blue"],
+          ["🗓","Delivery","Pick the best day for your home setup.","green"],
+          ["✉","Messages","Skip the phone tag and reach our team fast.","amber"],
+          ["🛡","Support","Questions before arrival? Start here.","rose"],
+        ],
+        receipt: [["Sectional", "$1,499.00"],["Delivery", "$129.00"],["Protection Plan", "$149.00"]],
+        total: "$1,777.00",
+      },
+      daniel: {
+        label: "Daniel • Mattress Support",
+        welcome: "Welcome back, Daniel",
+        heroTitle: "Your mattress is delivered — now everything stays easy.",
+        heroText: "Keep your receipt handy, review care tips, check protection details, and send photos if you ever need support.",
+        orderName: "Cool Breeze Hybrid Queen Mattress",
+        orderStatus: "Delivered",
+        statusTone: "blue",
+        eta: "Delivered Mar 2",
+        progress: 100,
+        orderNumber: "#10391",
+        deliveryType: "In-Home Setup",
+        nextStep: "Review Care Tips",
+        routeStatus: "Delivered successfully",
+        routeMetrics: [["Mar 2","Delivered"],["Signed","Confirmation"],["Saved","Proof"]],
+        mapBlurb: "For delivered orders, the route view becomes a delivery confirmation record customers can revisit later.",
+        mapPin: "Delivered",
+        mapPinTone: "blue",
+        destination: "Customer Home",
+        messageFrom: "PJs Support",
+        messageText: "Thanks again for shopping with us. Need help with comfort questions or warranty info? You can handle it right here.",
+        steps: [
+          ["Order Placed", true, "Feb 25"],
+          ["Confirmed", true, "Feb 25"],
+          ["Out for Delivery", true, "Mar 2"],
+          ["Delivered", true, "Mar 2"],
+          ["Care + Support", false, "Available now"],
+          ["Future Receipt Access", false, "Anytime"],
+        ],
+        actions: ["View Care Guide","Upload Photos","Message Support"],
+        tiles: [
+          ["📄","Receipt","Always available for records or financing needs.","blue"],
+          ["🛡","Protection","See what coverage came with your purchase.","green"],
+          ["🛋","Care Guide","Break-in period and mattress care tips.","amber"],
+          ["✉","Support","Upload photos if something needs attention.","rose"],
+        ],
+        receipt: [["Queen Hybrid Mattress", "$899.00"],["Delivery + Setup", "$99.00"],["Mattress Protector", "$79.00"]],
+        total: "$1,077.00",
+      },
+      amber: {
+        label: "Amber • Pickup Ready",
+        welcome: "Welcome back, Amber",
+        heroTitle: "Great news — your order is ready for pickup.",
+        heroText: "Confirm your pickup window, review what to bring, and message the store if you need to change plans before you arrive.",
+        orderName: "Navi Storage Bed",
+        orderStatus: "Ready for Pickup",
+        statusTone: "amber",
+        eta: "Ready Now",
+        progress: 90,
+        orderNumber: "#10516",
+        deliveryType: "Customer Pickup",
+        nextStep: "Confirm Pickup Time",
+        routeStatus: "At store • Holding area A3",
+        routeMetrics: [["Ready","Status"],["A3","Holding Area"],["10:45","Pickup Slot"]],
+        mapBlurb: "Pickup customers still get visibility — but instead of a truck route, they see store readiness and pickup instructions.",
+        mapPin: "Ready",
+        mapPinTone: "amber",
+        destination: "Pickup Counter",
+        messageFrom: "PJs Front Desk",
+        messageText: "Your bed is ready. Please confirm whether you'd like to pick up today at 3:30 PM or tomorrow at 10:45 AM.",
+        steps: [
+          ["Order Placed", true, "Mar 10"],
+          ["Confirmed", true, "Mar 10"],
+          ["Transferred to Store", true, "Mar 14"],
+          ["Pickup Ready", true, "Mar 16"],
+          ["Confirm Pickup", false, "Up next"],
+          ["Picked Up", false, "Pending"],
+        ],
+        actions: ["Pick Up Today","Pick Up Tomorrow","Need Another Day"],
+        tiles: [
+          ["📦","Pickup Info","See hours, location, and what to bring.","blue"],
+          ["📄","Receipt","Pull your receipt up at arrival if needed.","green"],
+          ["✉","Messages","Let us know if your schedule changes.","amber"],
+          ["🛡","Store Policies","Helpful reminders before pickup day.","rose"],
+        ],
+        receipt: [["Navi Storage Bed", "$699.00"],["Pickup Hold", "$0.00"],["Assembly Hardware Kit", "$29.00"]],
+        total: "$728.00",
+      }
+    };
+
+    const heatmapItems = [
+      { zone: "Delivery", title: "4 confirmations pending", level: "Hot", cls: "rose" },
+      { zone: "Special Orders", title: "2 aged beyond ETA", level: "Hot", cls: "amber" },
+      { zone: "Service", title: "1 photo claim unresolved", level: "Warm", cls: "orange" },
+      { zone: "Messages", title: "Response times healthy", level: "Stable", cls: "green" },
+      { zone: "Pickup", title: "All customers confirmed", level: "Stable", cls: "blue" },
+      { zone: "Receiving", title: "Truck processing on pace", level: "Stable", cls: "" },
+    ];
+
+    let currentScenario = "paige";
+
+    function statusPill(tone, text){
+      return `<div class="pill ${tone}">${text}</div>`;
+    }
+
+    function renderCustomer(){
+      const s = customerScenarios[currentScenario];
+      const tiles = s.tiles.map(t => `
+        <div class="tile ${t[3]}">
+          <div class="icon">${t[0]}</div>
+          <h4>${t[1]}</h4>
+          <p>${t[2]}</p>
+        </div>
+      `).join("");
+
+      const steps = s.steps.map(step => `
+        <div class="step">
+          <div class="bubble ${step[1] ? "done" : ""}">${step[1] ? "✓" : "•"}</div>
+          <div class="meta">
+            <div class="a" style="${step[1] ? "" : "color:#64748b"}">${step[0]}</div>
+            <div class="b">${step[1] ? `Completed • ${step[2]}` : step[2]}</div>
+          </div>
+        </div>
+      `).join("");
+
+      const receipt = s.receipt.map(r => `
+        <div class="receipt-row"><span style="color:#64748b">${r[0]}</span><strong>${r[1]}</strong></div>
+      `).join("");
+
+      const scenarioButtons = Object.entries(customerScenarios).map(([key, value]) => `
+        <button class="scenario-btn ${key === currentScenario ? "active" : ""}" data-scenario="${key}">${value.label}</button>
+      `).join("");
+
+      const routeMetrics = s.routeMetrics.map(m => `
+        <div class="mini"><strong>${m[0]}</strong><span style="font-size:12px;color:#64748b">${m[1]}</span></div>
+      `).join("");
+
+      document.getElementById("customer").innerHTML = `
+        <div class="phone-shell">
+          <div class="phone">
+            <div class="top">
+              <div class="notch"></div>
+              <div class="status"><span>9:41</span><span>Secure Login</span></div>
+              <div class="head">
+                <div>
+                  <div class="brand">PJs Furniture & Mattress</div>
+                  <div class="title">Customer Portal</div>
+                </div>
+                <div class="avatar">PJ</div>
+              </div>
+            </div>
+            <div class="screen">
+              <div class="card">
+                <div class="small" style="color:#64748b">Try customer situations</div>
+                <div class="muted" style="margin-top:8px">Tap a login below to preview how the portal changes for three real customer moments.</div>
+                <div class="scenario-tabs">${scenarioButtons}</div>
+              </div>
+
+              <div class="dark-card" style="margin-top:14px">
+                <div class="small">${s.welcome}</div>
+                <div class="big">${s.heroTitle}</div>
+                <div class="muted" style="margin-top:10px">${s.heroText}</div>
+                <div class="btnrow">
+                  ${s.actions.map((a, i) => `<button class="${i === 2 ? "btn2" : "btn"}">${a}</button>`).join("")}
+                </div>
+                <div class="card" style="margin-top:14px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);position:relative;z-index:1">
+                  <div class="split">
+                    <div>
+                      <div class="small">Brand feel</div>
+                      <div style="font-size:18px;font-weight:700;margin-top:6px">Comfort. Curated. PJs Approved.</div>
+                    </div>
+                    <div class="pill ${s.statusTone}" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.12)">${s.orderStatus}</div>
+                  </div>
+                  <div style="font-size:14px;color:#e2e8f0;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
+                </div>
+              </div>
+
+              <div class="row2">${tiles}</div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Delivery & Order Tracker</div>
+                    <div class="section-sub">The dashboard changes based on the customer's real situation.</div>
+                  </div>
+                  ${statusPill(s.statusTone, s.orderStatus)}
+                </div>
+                <div class="tracker">${steps}</div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Live Route & Delivery View</div>
+                    <div class="section-sub">A map-style tracker makes the portal feel like real software, not just a receipt lookup page.</div>
+                  </div>
+                  <div class="pill" style="background:#111827;color:#fff;border-color:#111827">${s.routeStatus}</div>
+                </div>
+                <div class="map">
+                  <div class="map-art">
+                    <div class="ring a"></div>
+                    <div class="ring b"></div>
+                    <div class="road h1"></div>
+                    <div class="road h2"></div>
+                    <div class="road v1"></div>
+                    <div class="road v2"></div>
+                    <div class="pin store">Store</div>
+                    <div class="pin dest">${s.destination}</div>
+                    <div class="pin live ${s.mapPinTone}">${s.mapPin}</div>
+                  </div>
+                  <div class="map-body">
+                    <div style="font-size:14px;font-weight:700">${s.routeStatus}</div>
+                    <div class="muted" style="margin-top:4px;font-size:14px">${s.mapBlurb}</div>
+                    <div class="mini-grid">${routeMetrics}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Current Order</div>
+                    <div class="section-sub">${s.orderName}</div>
+                  </div>
+                  ${statusPill("blue", s.eta)}
+                </div>
+                <div class="card" style="margin-top:14px;background:#f8fafc">
+                  <div class="split" style="font-size:14px"><span style="color:#64748b">Order ${s.orderNumber}</span><strong>${s.progress}% Complete</strong></div>
+                  <div class="progress"><div style="width:${s.progress}%"></div></div>
+                  <div class="row2" style="margin-top:14px">
+                    <div class="tile"><h4>Fulfillment Type</h4><p>${s.deliveryType}</p></div>
+                    <div class="tile"><h4>Next Step</h4><p>${s.nextStep}</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Message Center</div>
+                    <div class="section-sub">A simple, customer-friendly way to stay connected with the store.</div>
+                  </div>
+                  <button class="smallbtn">Reply</button>
+                </div>
+                <div class="card" style="margin-top:14px;background:#f8fafc">
+                  <div style="font-size:14px;font-weight:700">${s.messageFrom}</div>
+                  <div class="muted" style="margin-top:8px;font-size:14px">${s.messageText}</div>
+                  <div class="btnrow" style="margin-top:14px">
+                    ${s.actions.map(a => `<button class="smallbtn">${a}</button>`).join("")}
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Digital Receipt</div>
+                    <div class="section-sub">Easy receipt lookup and download.</div>
+                  </div>
+                  <button class="smallbtn">Download PDF</button>
+                </div>
+                <div class="card" style="margin-top:14px;background:#f8fafc">
+                  ${receipt}
+                  <div class="receipt-row" style="border-top:1px solid var(--line);padding-top:12px;margin-top:12px"><strong>Total</strong><strong style="font-size:18px">${s.total}</strong></div>
+                </div>
+              </div>
+
+              <div class="nav">
+                <button class="item active">⌂</button>
+                <button class="item">◫</button>
+                <button class="item">🗓</button>
+                <button class="item">✉</button>
+                <button class="item">☺</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll(".scenario-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentScenario = btn.dataset.scenario;
+          renderCustomer();
+        });
+      });
+    }
+
+    function renderStaff(){
+      document.getElementById("staff").innerHTML = `
+        <div class="phone-shell">
+          <div class="phone">
+            <div class="top">
+              <div class="notch"></div>
+              <div class="status"><span>9:41</span><span>Sales + Service</span></div>
+              <div class="head">
+                <div>
+                  <div class="brand">PJs Furniture & Mattress</div>
+                  <div class="title">Staff Portal</div>
+                </div>
+                <div class="avatar">S</div>
+              </div>
+            </div>
+            <div class="screen">
+              <div class="card">
+                <div class="split">
+                  <div>
+                    <div class="small" style="color:#94a3b8">Today at a glance</div>
+                    <div style="font-size:30px;font-weight:700;color:#111827;margin-top:6px">Good morning, Steven</div>
+                  </div>
+                  <div class="avatar" style="background:#111827;color:#fff">S</div>
+                </div>
+                <div class="muted" style="margin-top:10px">Everything your team needs for orders, deliveries, receipts, customer follow-up, and day-to-day coordination in one workspace.</div>
+                <div class="dark-card" style="margin-top:14px">
+                  <div class="split">
+                    <div>
+                      <div class="small">Live Queue</div>
+                      <div style="font-size:22px;font-weight:700;margin-top:6px">8 orders need attention</div>
+                    </div>
+                    <div style="font-size:22px;position:relative;z-index:1">☰</div>
+                  </div>
+                  <div class="row2" style="grid-template-columns:repeat(3,1fr);margin-top:14px">
+                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">5</h4><p style="color:#cbd5e1">Ready</p></div>
+                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">2</h4><p style="color:#cbd5e1">Delayed</p></div>
+                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">1</h4><p style="color:#cbd5e1">Claim</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="search">🔎 <span>Search customer, order #, phone, receipt…</span></div>
+                <div class="row2">
+                  <div class="tile"><div class="icon">📦</div><h4>Orders</h4><p>Lookup, status, notes, and exceptions.</p></div>
+                  <div class="tile green"><div class="icon">🚚</div><h4>Deliveries</h4><p>Schedules, routes, and confirmations.</p></div>
+                  <div class="tile blue"><div class="icon">✉</div><h4>Messages</h4><p>Customer communication history in one place.</p></div>
+                  <div class="tile rose"><div class="icon">🛠</div><h4>Service</h4><p>Claims, photos, and issue tracking.</p></div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Priority Tasks</div>
+                    <div class="section-sub">Built around the real work your staff does all day.</div>
+                  </div>
+                  <div style="font-size:14px;font-weight:700;color:#334155">View All</div>
+                </div>
+                <div class="task">
+                  <div class="split"><h4>3 customers need delivery confirmation</h4><div class="pill amber">High Priority</div></div>
+                  <p>Updated 12 minutes ago</p>
+                  <div class="act"><button class="smallbtn dark">Open</button><button class="smallbtn">Assign</button></div>
+                </div>
+                <div class="task">
+                  <div class="split"><h4>2 service issues waiting on photos</h4><div class="pill blue">Needs Follow-Up</div></div>
+                  <p>Updated 12 minutes ago</p>
+                  <div class="act"><button class="smallbtn dark">Open</button><button class="smallbtn">Assign</button></div>
+                </div>
+                <div class="task">
+                  <div class="split"><h4>1 special order delayed at vendor</h4><div class="pill rose">Exception</div></div>
+                  <p>Updated 12 minutes ago</p>
+                  <div class="act"><button class="smallbtn dark">Open</button><button class="smallbtn">Assign</button></div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="section-title">Today's Schedule</div>
+                <div class="task" style="margin-top:14px;background:#f8fafc"><div class="split"><div><h4>Open showroom + morning leads</h4><p>Front</p></div><strong style="font-size:12px">10:30 AM</strong></div></div>
+                <div class="task" style="margin-top:10px;background:#f8fafc"><div class="split"><div><h4>Caspian Town delivery</h4><p>Rogers</p></div><strong style="font-size:12px">1:00 PM</strong></div></div>
+                <div class="task" style="margin-top:10px;background:#f8fafc"><div class="split"><div><h4>Pickup appointment</h4><p>Store</p></div><strong style="font-size:12px">3:30 PM</strong></div></div>
+              </div>
+
+              <div class="nav">
+                <button class="item active">☰</button>
+                <button class="item">⌕</button>
+                <button class="item">◫</button>
+                <button class="item">🔔</button>
+                <button class="item">☺</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderOwner(){
+      const heat = heatmapItems.map(item => `
+        <div class="heat ${item.cls}">
+          <div class="z">${item.zone}</div>
+          <div class="t">${item.title}</div>
+          <div class="lvl">${item.level}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("owner").innerHTML = `
+        <div class="phone-shell">
+          <div class="phone">
+            <div class="top">
+              <div class="notch"></div>
+              <div class="status"><span>9:41</span><span>Executive View</span></div>
+              <div class="head">
+                <div>
+                  <div class="brand">PJs Furniture & Mattress</div>
+                  <div class="title">Owner Portal</div>
+                </div>
+                <div class="avatar">PJ</div>
+              </div>
+            </div>
+            <div class="screen">
+              <div class="dark-card">
+                <div class="small">Executive dashboard</div>
+                <div class="big">See the business clearly.</div>
+                <div class="muted" style="margin-top:10px">Orders, delays, revenue, service issues, customer response times, and team accountability in one secure command center.</div>
+                <div class="card" style="margin-top:14px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;position:relative;z-index:1">
+                  <div style="display:flex;gap:10px;align-items:center">
+                    <span style="font-size:18px">⚠</span>
+                    <div style="font-size:14px">3 delayed orders and 2 service issues need review today.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metric-grid" style="margin-top:14px">
+                <div class="metric green"><div class="k">Sales Today</div><div class="v">$8,420</div></div>
+                <div class="metric blue"><div class="k">Open Orders</div><div class="v">27</div></div>
+                <div class="metric amber"><div class="k">Ready to Schedule</div><div class="v">6</div></div>
+                <div class="metric rose"><div class="k">Service Issues</div><div class="v">2</div></div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Operational Watchlist</div>
+                    <div class="section-sub">The issues you'd want to know about fast.</div>
+                  </div>
+                  <button class="smallbtn">Full Report</button>
+                </div>
+                <div class="task">
+                  <div class="split"><h4>Delivery bottleneck</h4><div class="pill amber">Action Needed</div></div>
+                  <p>4 white-glove deliveries still need customer confirmation.</p>
+                </div>
+                <div class="task">
+                  <div class="split"><h4>Vendor delay</h4><div class="pill rose">Delayed</div></div>
+                  <p>Collins modular order has aged 18 days beyond ETA.</p>
+                </div>
+                <div class="task">
+                  <div class="split"><h4>Response time</h4><div class="pill green">Healthy</div></div>
+                  <p>Average follow-up time improved to 19 minutes today.</p>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Performance Snapshot</div>
+                    <div class="section-sub">A simple mobile-friendly KPI view.</div>
+                  </div>
+                  <div style="font-size:20px">▥</div>
+                </div>
+                <div class="bars">
+                  <div class="barwrap"><div class="bar" style="height:42%"></div><div class="label">Mon</div></div>
+                  <div class="barwrap"><div class="bar" style="height:68%"></div><div class="label">Tue</div></div>
+                  <div class="barwrap"><div class="bar" style="height:51%"></div><div class="label">Wed</div></div>
+                  <div class="barwrap"><div class="bar" style="height:82%"></div><div class="label">Thu</div></div>
+                  <div class="barwrap"><div class="bar" style="height:74%"></div><div class="label">Fri</div></div>
+                  <div class="barwrap"><div class="bar" style="height:96%"></div><div class="label">Sat</div></div>
+                  <div class="barwrap"><div class="bar" style="height:88%"></div><div class="label">Sun</div></div>
+                </div>
+                <div class="row2" style="grid-template-columns:repeat(3,1fr)">
+                  <div class="tile"><h4 style="font-size:22px;margin:0">92%</h4><p>On-Time</p></div>
+                  <div class="tile"><h4 style="font-size:22px;margin:0">19m</h4><p>Response</p></div>
+                  <div class="tile"><h4 style="font-size:22px;margin:0">4.9</h4><p>Service</p></div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="split">
+                  <div>
+                    <div class="section-title">Operational Heatmap</div>
+                    <div class="section-sub">A fast visual way to spot pressure points across the business.</div>
+                  </div>
+                  <div class="pill" style="background:#111827;color:#fff;border-color:#111827">Live View</div>
+                </div>
+                <div class="heat-grid">${heat}</div>
+              </div>
+
+              <div class="card" style="margin-top:14px">
+                <div class="section-title">Owner Actions</div>
+                <div class="row2">
+                  <div class="tile"><div class="icon">👥</div><h4>Team View</h4><p>Permissions, accountability, and activity.</p></div>
+                  <div class="tile blue"><div class="icon">⚙</div><h4>Controls</h4><p>Integrations, alerts, and admin settings.</p></div>
+                  <div class="tile amber"><div class="icon">⏱</div><h4>Aging Orders</h4><p>See what is stalled before it becomes a problem.</p></div>
+                  <div class="tile rose"><div class="icon">☎</div><h4>Escalations</h4><p>Review issues that need owner visibility.</p></div>
+                </div>
+              </div>
+
+              <div class="nav">
+                <button class="item active">☰</button>
+                <button class="item">▥</button>
+                <button class="item">🔔</button>
+                <button class="item">⚙</button>
+                <button class="item">☺</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    renderCustomer();
+    renderStaff();
+    renderOwner();
+
+    const tabs = document.querySelectorAll(".tab");
+    const portals = document.querySelectorAll(".portal");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        portals.forEach(p => p.classList.add("hide"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.target).classList.remove("hide");
+      });
+    });
+  </script>
+</body>
+</html>
