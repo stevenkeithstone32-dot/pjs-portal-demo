@@ -116,7 +116,19 @@
     .step .meta .a{font-size:14px;font-weight:600}
     .step .meta .b{font-size:12px;color:#94a3b8;margin-top:2px}
     .pill{
-      font-size:12px;font-weight:700;border-radius:999px;padding:8px 12px;border:1px solid transparent;white-space:nowrap
+      font-size:12px;
+      font-weight:700;
+      border-radius:999px;
+      padding:8px 12px;
+      border:1px solid transparent;
+      white-space:normal;
+      word-break:break-word;
+      text-align:center;
+      line-height:1.2;
+      max-width:110px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
     .pill.green{background:#ecfdf5;color:#047857;border-color:#d1fae5}
     .pill.blue{background:#eff6ff;color:#1d4ed8;border-color:#dbeafe}
@@ -286,7 +298,7 @@
         orderNumber: "#10482",
         deliveryType: "White-Glove",
         nextStep: "Choose Your Day",
-        routeStatus: "Truck assigned • Stop 6 of 12",
+        routeStatus: "Truck Live",
         routeMetrics: [["10:45","Window Start"],["6 / 12","Stops Today"],["18m","Away"]],
         mapBlurb: "Your delivery is moving through today’s route. Live location and stop progress reduce inbound phone calls fast.",
         mapPin: "Truck Live",
@@ -364,7 +376,7 @@
         orderNumber: "#10516",
         deliveryType: "Customer Pickup",
         nextStep: "Confirm Pickup Time",
-        routeStatus: "At store • Holding area A3",
+        routeStatus: "Ready for Pickup",
         routeMetrics: [["Ready","Status"],["A3","Holding Area"],["10:45","Pickup Slot"]],
         mapBlurb: "Pickup customers still get visibility — but instead of a truck route, they see store readiness and pickup instructions.",
         mapPin: "Ready",
