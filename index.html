@@ -6,195 +6,650 @@
   <title>PJs Portal Mobile Showcase</title>
   <style>
     :root{
-      --bg:#f8fafc;
+      --bg:#f7f8fb;
       --card:#ffffff;
-      --line:#e5e7eb;
-      --text:#0f172a;
-      --muted:#64748b;
-      --dark:#111827;
-      --dark2:#1f2937;
-      --blue:#eff6ff;
-      --green:#ecfdf5;
-      --amber:#fffbeb;
-      --rose:#fff1f2;
-      --orange:#fff7ed;
+      --line:#dfe4ea;
+      --text:#10213a;
+      --muted:#667085;
+      --dark:#0f1830;
+      --dark2:#162449;
+      --brand-blue:#79cdf6;
+      --brand-blue-soft:#eaf8ff;
+      --brand-blue-deep:#45b4ed;
+      --brand-gold:#f3c84b;
+      --brand-gold-soft:#fff7da;
+      --green:#ecfdf3;
+      --amber:#fff9e6;
+      --rose:#fff3f5;
+      --orange:#fff5eb;
+      --shadow:0 10px 30px rgba(16,33,58,.08);
     }
+
     *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
     body{
       margin:0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color:var(--text);
-      background:linear-gradient(to bottom,#f1f5f9,#ffffff);
+      background:
+        radial-gradient(circle at top left, rgba(121,205,246,.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(243,200,75,.12), transparent 22%),
+        linear-gradient(to bottom,#f6f8fc,#ffffff);
     }
+
     .wrap{max-width:1180px;margin:0 auto;padding:24px}
     .hero{text-align:center;margin-bottom:28px}
-    .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#64748b}
-    h1{font-size:clamp(30px,5vw,54px);line-height:1.05;margin:12px 0 0;font-weight:700}
-    .sub{max-width:840px;margin:16px auto 0;color:#475569;line-height:1.7}
-    .tabs,.scenario-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .eyebrow{
+      font-size:11px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:#6b7280;
+    }
+    h1{
+      font-size:clamp(30px,5vw,54px);
+      line-height:1.05;
+      margin:12px 0 0;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+    .sub{
+      max-width:840px;
+      margin:16px auto 0;
+      color:#556070;
+      line-height:1.7;
+      font-size:15px;
+    }
+
+    .tabs,.scenario-tabs{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
     .tabs{margin-top:22px}
     .scenario-tabs{margin-top:12px}
+
     .tab,.scenario-btn{
-      border:1px solid var(--line);background:#fff;color:#475569;border-radius:999px;padding:12px 18px;
-      font-weight:600;cursor:pointer;transition:.2s ease;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#475569;
+      border-radius:999px;
+      padding:12px 18px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+      box-shadow:0 2px 10px rgba(15,24,48,.03);
     }
-    .tab.active,.scenario-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
-    .grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:28px;align-items:start;margin-top:30px}
+
+    .tab:hover,.scenario-btn:hover{transform:translateY(-1px)}
+    .tab.active,.scenario-btn.active{
+      background:var(--dark);
+      color:#fff;
+      border-color:var(--dark);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:340px minmax(0,1fr);
+      gap:28px;
+      align-items:start;
+      margin-top:30px;
+    }
+
     .panel,.card{
-      background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 4px 18px rgba(15,23,42,.05)
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
     }
-    .panel{padding:24px;position:sticky;top:20px}
-    .panel h3{margin:0 0 12px;font-size:16px}
-    .panel p{color:#475569;line-height:1.7;margin:10px 0}
-    .bullet{display:flex;gap:12px;padding:15px;border:1px solid var(--line);border-radius:20px;margin-top:12px}
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--dark);margin-top:6px;flex:0 0 auto}
-    .cta{
-      margin-top:18px;width:100%;border:none;background:var(--dark);color:#fff;padding:14px 18px;border-radius:999px;
-      font-weight:700
+
+    .panel{
+      padding:24px;
+      position:sticky;
+      top:20px;
+      overflow:hidden;
     }
-    .phone-shell{
-      width:390px;max-width:100%;margin:0 auto;background:#020617;padding:8px;border-radius:36px;
-      box-shadow:0 28px 70px rgba(15,23,42,.18), 0 0 0 1px rgba(148,163,184,.3)
-    }
-    .phone{
-      min-height:820px;background:#fff;border-radius:32px;overflow:hidden;border:1px solid var(--line)
-    }
-    .top{
-      background:linear-gradient(180deg,#020617,#111827);color:#fff;padding:14px 20px 16px
-    }
-    .notch{height:24px;width:140px;border-radius:999px;background:rgba(0,0,0,.6);margin:0 auto 12px}
-    .status{display:flex;justify-content:space-between;color:#cbd5e1;font-size:12px}
-    .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-top:12px}
-    .brand{font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#94a3b8}
-    .title{font-size:24px;font-weight:700;margin-top:4px}
-    .avatar{
-      width:42px;height:42px;border-radius:18px;background:rgba(255,255,255,.1);display:grid;place-items:center;
-      font-weight:700
-    }
-    .screen{background:var(--bg);min-height:734px;padding:14px;position:relative}
-    .card{padding:18px}
-    .dark-card{
-      background:linear-gradient(135deg,#020617,#111827 35%,#374151);color:#fff;border-radius:24px;padding:18px;position:relative;overflow:hidden
-    }
-    .dark-card:after{
-      content:"";position:absolute;inset:0;background:radial-gradient(circle at top right, rgba(255,255,255,.14), transparent 35%);
+
+    .panel:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at top right, rgba(121,205,246,.13), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(243,200,75,.12), transparent 22%);
       pointer-events:none;
     }
-    .small{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.2em}
-    .dark-card .small{color:#cbd5e1}
-    .big{font-size:29px;line-height:1.1;font-weight:700;margin-top:8px;position:relative;z-index:1}
-    .muted{color:#64748b;line-height:1.65}
-    .dark-card .muted{color:#e2e8f0;position:relative;z-index:1}
-    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
-    .btn,.btn2,.chip{
-      border:none;border-radius:999px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer
+
+    .panel > *{position:relative;z-index:1}
+    .panel h3{margin:0 0 12px;font-size:16px}
+    .panel p{color:#4e5d72;line-height:1.7;margin:10px 0;font-size:14px}
+
+    .brand-card{
+      margin-top:16px;
+      background:linear-gradient(135deg,#f9fcff,#fffdf5);
+      display:grid;
+      grid-template-columns:1fr 90px;
+      gap:14px;
+      align-items:center;
     }
-    .btn{background:#fff;color:#111827}
-    .btn2{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18)}
-    .row2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-    .tile{border:1px solid var(--line);border-radius:24px;padding:14px}
-    .tile h4{margin:10px 0 0;font-size:14px}
-    .tile p{margin:4px 0 0;font-size:12px;color:#64748b;line-height:1.55}
-    .blue{background:var(--blue)}
+
+    .brand-card img{
+      width:86px;
+      height:auto;
+      display:block;
+      justify-self:end;
+      filter:drop-shadow(0 8px 20px rgba(16,33,58,.10));
+    }
+
+    .bullet{
+      display:flex;
+      gap:12px;
+      padding:15px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      margin-top:12px;
+      background:#fff;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--dark);
+      margin-top:6px;
+      flex:0 0 auto;
+    }
+
+    .cta{
+      margin-top:18px;
+      width:100%;
+      border:none;
+      background:var(--dark);
+      color:#fff;
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 12px 24px rgba(16,33,58,.12);
+    }
+
+    .phone-shell{
+      width:390px;
+      max-width:100%;
+      margin:0 auto;
+      background:#020617;
+      padding:8px;
+      border-radius:36px;
+      box-shadow:
+        0 28px 70px rgba(15,23,42,.18),
+        0 0 0 1px rgba(148,163,184,.3);
+    }
+
+    .phone{
+      min-height:820px;
+      background:#fff;
+      border-radius:32px;
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+
+    .top{
+      background:
+        radial-gradient(circle at top right, rgba(121,205,246,.18), transparent 28%),
+        linear-gradient(180deg,#081122,#122041);
+      color:#fff;
+      padding:14px 20px 16px;
+    }
+
+    .notch{
+      height:24px;
+      width:140px;
+      border-radius:999px;
+      background:rgba(0,0,0,.6);
+      margin:0 auto 12px;
+    }
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      color:#d4deed;
+      font-size:12px;
+    }
+
+    .head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      margin-top:12px;
+    }
+
+    .brand{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      color:#a8bbd9;
+    }
+
+    .title{
+      font-size:24px;
+      font-weight:800;
+      margin-top:4px;
+      letter-spacing:-.02em;
+    }
+
+    .avatar{
+      width:42px;
+      height:42px;
+      border-radius:18px;
+      background:rgba(255,255,255,.12);
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+
+    .screen{
+      background:var(--bg);
+      min-height:734px;
+      padding:14px;
+      position:relative;
+    }
+
+    .card{padding:18px}
+    .card-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+
+    .dark-card{
+      background:
+        radial-gradient(circle at top right, rgba(121,205,246,.14), transparent 32%),
+        linear-gradient(135deg,#0b1328,#162449 35%,#29426a);
+      color:#fff;
+      border-radius:24px;
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .dark-card:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at bottom left, rgba(243,200,75,.12), transparent 20%);
+      pointer-events:none;
+    }
+
+    .small{
+      font-size:12px;
+      color:#9fb4d5;
+      text-transform:uppercase;
+      letter-spacing:.2em;
+    }
+
+    .dark-card .small{color:#d2def1}
+
+    .big{
+      font-size:29px;
+      line-height:1.02;
+      font-weight:800;
+      margin-top:8px;
+      position:relative;
+      z-index:1;
+      letter-spacing:-.03em;
+    }
+
+    .muted{
+      color:#64748b;
+      line-height:1.65;
+      font-size:14px;
+    }
+
+    .dark-card .muted{
+      color:#ebf1fb;
+      position:relative;
+      z-index:1;
+    }
+
+    .btnrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .btn,.btn2,.chip{
+      border:none;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+    }
+
+    .btn{
+      background:#fff;
+      color:#10213a;
+      box-shadow:0 8px 20px rgba(16,33,58,.12);
+    }
+
+    .btn2{
+      background:transparent;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+    }
+
+    .row2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .tile{
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .tile h4{
+      margin:10px 0 0;
+      font-size:14px;
+      letter-spacing:-.01em;
+    }
+
+    .tile p{
+      margin:4px 0 0;
+      font-size:12px;
+      color:#64748b;
+      line-height:1.55;
+    }
+
+    .blue{background:var(--brand-blue-soft)}
     .green{background:var(--green)}
     .amber{background:var(--amber)}
     .rose{background:var(--rose)}
     .orange{background:var(--orange)}
-    .section-title{font-size:18px;font-weight:700;margin:0}
-    .section-sub{font-size:14px;color:#64748b;margin-top:3px}
-    .tracker{margin-top:14px;position:relative}
+
+    .section-title{
+      font-size:18px;
+      font-weight:800;
+      margin:0;
+      letter-spacing:-.02em;
+    }
+
+    .section-sub{
+      font-size:14px;
+      color:#64748b;
+      margin-top:3px;
+      line-height:1.45;
+    }
+
+    .tracker{
+      margin-top:14px;
+      position:relative;
+    }
+
     .tracker:before{
-      content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:#e2e8f0
+      content:"";
+      position:absolute;
+      left:11px;
+      top:8px;
+      bottom:8px;
+      width:2px;
+      background:#e2e8f0;
     }
-    .step{display:flex;gap:12px;position:relative;margin:14px 0}
+
+    .step{
+      display:flex;
+      gap:12px;
+      position:relative;
+      margin:14px 0;
+    }
+
     .bubble{
-      width:24px;height:24px;border-radius:999px;display:grid;place-items:center;z-index:1;background:#fff;border:2px solid #cbd5e1;
-      font-size:12px;font-weight:700;color:#94a3b8;flex:0 0 auto
-    }
-    .bubble.done{background:#111827;border-color:#111827;color:#fff}
-    .step .meta{flex:1}
-    .step .meta .a{font-size:14px;font-weight:600}
-    .step .meta .b{font-size:12px;color:#94a3b8;margin-top:2px}
-    .pill{
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      z-index:1;
+      background:#fff;
+      border:2px solid #cbd5e1;
       font-size:12px;
       font-weight:700;
+      color:#94a3b8;
+      flex:0 0 auto
+    }
+
+    .bubble.done{
+      background:#111827;
+      border-color:#111827;
+      color:#fff
+    }
+
+    .step .meta{flex:1}
+    .step .meta .a{font-size:14px;font-weight:700}
+    .step .meta .b{font-size:12px;color:#94a3b8;margin-top:2px}
+
+    .pill{
+      font-size:12px;
+      font-weight:800;
       border-radius:999px;
       padding:8px 12px;
       border:1px solid transparent;
-      white-space:normal;
-      word-break:break-word;
+      white-space:nowrap;
       text-align:center;
-      line-height:1.2;
-      max-width:110px;
+      line-height:1.1;
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      min-height:34px;
+      max-width:none;
+      flex-shrink:0;
     }
+
     .pill.green{background:#ecfdf5;color:#047857;border-color:#d1fae5}
     .pill.blue{background:#eff6ff;color:#1d4ed8;border-color:#dbeafe}
-    .pill.amber{background:#fffbeb;color:#b45309;border-color:#fde68a}
+    .pill.amber{background:#fff7da;color:#9a6700;border-color:#f3d98f}
     .pill.rose{background:#fff1f2;color:#be123c;border-color:#fecdd3}
+
     .receipt-row,.split{display:flex;justify-content:space-between;gap:12px}
     .receipt-row{font-size:14px;margin-top:9px}
-    .progress{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden;margin-top:10px}
-    .progress > div{height:100%;background:#111827}
+
+    .progress{
+      height:10px;
+      border-radius:999px;
+      background:#e2e8f0;
+      overflow:hidden;
+      margin-top:10px;
+    }
+
+    .progress > div{
+      height:100%;
+      background:linear-gradient(90deg,var(--brand-blue-deep),#10213a);
+    }
+
     .nav{
-      position:sticky;bottom:12px;margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:999px;
-      box-shadow:0 16px 40px rgba(15,23,42,.12);padding:8px 10px;display:flex;justify-content:space-between;gap:8px
+      position:sticky;
+      bottom:12px;
+      margin-top:12px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:999px;
+      box-shadow:0 16px 40px rgba(15,23,42,.12);
+      padding:8px 10px;
+      display:flex;
+      justify-content:space-between;
+      gap:8px
     }
+
     .nav .item{
-      width:46px;height:46px;border-radius:999px;border:none;background:transparent;color:#64748b;font-size:18px
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      border:none;
+      background:transparent;
+      color:#64748b;
+      font-size:18px
     }
-    .nav .item.active{background:#111827;color:#fff}
-    .metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-    .metric{border-radius:24px;padding:14px;border:1px solid var(--line)}
-    .metric .k{font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:#64748b}
-    .metric .v{font-size:30px;font-weight:800;margin-top:10px}
-    .bars{height:150px;display:flex;align-items:flex-end;gap:8px;margin-top:14px}
+
+    .nav .item.active{
+      background:var(--dark);
+      color:#fff
+    }
+
+    .metric-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px
+    }
+
+    .metric{
+      border-radius:24px;
+      padding:14px;
+      border:1px solid var(--line)
+    }
+
+    .metric .k{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#64748b
+    }
+
+    .metric .v{
+      font-size:30px;
+      font-weight:800;
+      margin-top:10px
+    }
+
+    .bars{
+      height:150px;
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+      margin-top:14px
+    }
+
     .barwrap{flex:1;text-align:center}
-    .bar{width:100%;background:#111827;border-radius:16px 16px 0 0}
-    .label{margin-top:8px;font-size:10px;color:#94a3b8}
-    .search{
-      display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:20px;background:#f8fafc;padding:14px;color:#94a3b8
+
+    .bar{
+      width:100%;
+      background:linear-gradient(180deg,var(--brand-blue-deep),var(--dark));
+      border-radius:16px 16px 0 0
     }
-    .task{border:1px solid var(--line);border-radius:24px;padding:14px;margin-top:12px}
+
+    .label{
+      margin-top:8px;
+      font-size:10px;
+      color:#94a3b8
+    }
+
+    .search{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:#f8fafc;
+      padding:14px;
+      color:#94a3b8
+    }
+
+    .task{
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:14px;
+      margin-top:12px;
+      background:#fff;
+    }
+
     .task h4{margin:0;font-size:14px}
     .task p{margin:6px 0 0;font-size:12px;color:#64748b}
     .task .act{display:flex;gap:8px;margin-top:12px}
+
     .smallbtn{
-      border-radius:999px;padding:9px 12px;font-size:12px;font-weight:700;border:1px solid var(--line);background:#fff
+      border-radius:999px;
+      padding:9px 12px;
+      font-size:12px;
+      font-weight:800;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
     }
-    .smallbtn.dark{background:#111827;border-color:#111827;color:#fff}
+
+    .smallbtn.dark{
+      background:#111827;
+      border-color:#111827;
+      color:#fff
+    }
+
     .hide{display:none}
-    .icon{width:38px;height:38px;border-radius:16px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px}
+
+    .icon{
+      width:38px;
+      height:38px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+      font-size:18px;
+      box-shadow:0 4px 14px rgba(16,33,58,.05);
+    }
+
     .map{
-      margin-top:14px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#f8fafc
+      margin-top:14px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      background:#f8fafc
     }
+
     .map-art{
-      height:176px;background:linear-gradient(135deg,#e2e8f0,#f8fafc,#ffffff);position:relative
+      height:176px;
+      background:
+        radial-gradient(circle at top left, rgba(121,205,246,.18), transparent 24%),
+        linear-gradient(135deg,#eef3fb,#fafcff,#ffffff);
+      position:relative
     }
-    .road{position:absolute;background:#cbd5e1}
+
+    .road{position:absolute;background:#c4cfdd}
     .road.h1{left:40px;right:40px;top:56px;height:2px;transform:rotate(8deg)}
     .road.h2{left:64px;right:64px;top:100px;height:2px;transform:rotate(-12deg)}
     .road.v1{left:58px;top:26px;bottom:26px;width:2px;transform:rotate(6deg)}
     .road.v2{right:64px;top:22px;bottom:22px;width:2px;transform:rotate(-10deg)}
-    .ring{position:absolute;border:1px solid rgba(148,163,184,.6);border-radius:999px}
+
+    .ring{
+      position:absolute;
+      border:1px solid rgba(141,156,178,.65);
+      border-radius:999px
+    }
+
     .ring.a{left:24px;top:24px;width:96px;height:96px}
     .ring.b{right:28px;bottom:24px;width:76px;height:76px}
+
     .pin{
       position:absolute;
-      padding:10px 14px;
-      border-radius:18px;
-      font-size:12px;
-      font-weight:700;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
       box-shadow:0 8px 24px rgba(15,23,42,.12);
       width:auto;
-      max-width:120px;
       text-align:center;
-      line-height:1.2;
-      white-space:normal;
-      word-break:break-word;
+      line-height:1;
+      white-space:nowrap;
+      word-break:normal;
+      letter-spacing:0;
+      min-width:64px;
     }
+
     .pin.store{
       left:28px;
       top:26px;
@@ -202,37 +657,99 @@
       border:1px solid var(--line);
       color:#334155;
     }
+
     .pin.dest{
       right:28px;
       bottom:26px;
       background:#111827;
       color:#fff;
     }
+
     .pin.live{
       left:44%;
       top:42%;
       transform:translate(-50%,-50%);
       border:4px solid #fff;
+      min-width:74px;
+      padding:8px 14px;
     }
-    .pin.live.green{background:#10b981;color:#fff}
-    .pin.live.blue{background:#3b82f6;color:#fff}
-    .pin.live.amber{background:#f59e0b;color:#fff}
+
+    .pin.live.green{background:#63cb93;color:#fff}
+    .pin.live.blue{background:#4dbcf1;color:#fff}
+    .pin.live.amber{background:#f3c84b;color:#10213a}
+
     .map-body{background:#fff;padding:16px}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;text-align:center}
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:14px;
+      text-align:center
+    }
+
     .mini{
-      border:1px solid var(--line);background:#f8fafc;border-radius:18px;padding:12px
+      border:1px solid var(--line);
+      background:#f8fafc;
+      border-radius:18px;
+      padding:12px
     }
-    .mini strong{display:block;font-size:17px}
-    .heat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+
+    .mini strong{
+      display:block;
+      font-size:17px
+    }
+
+    .heat-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:14px
+    }
+
     .heat{
-      border-radius:24px;padding:14px;border:1px solid var(--line)
+      border-radius:24px;
+      padding:14px;
+      border:1px solid var(--line)
     }
-    .heat .z{font-size:11px;text-transform:uppercase;letter-spacing:.18em}
-    .heat .t{font-size:14px;font-weight:700;margin-top:8px}
+
+    .heat .z{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em
+    }
+
+    .heat .t{
+      font-size:14px;
+      font-weight:800;
+      margin-top:8px
+    }
+
     .heat .lvl{
-      display:inline-flex;margin-top:12px;border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.7);
-      font-size:11px;font-weight:700
+      display:inline-flex;
+      margin-top:12px;
+      border-radius:999px;
+      padding:7px 11px;
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(255,255,255,.7);
+      font-size:11px;
+      font-weight:800
     }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px) scale(.985);
+      transition:
+        opacity .65s cubic-bezier(.2,.8,.2,1),
+        transform .65s cubic-bezier(.2,.8,.2,1);
+      will-change:transform,opacity;
+    }
+
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
     @media (max-width: 960px){
       .grid{grid-template-columns:1fr}
       .panel{position:static}
@@ -241,7 +758,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="hero">
+    <div class="hero reveal">
       <div class="eyebrow">Portal Concept Showcase</div>
       <h1>Mobile-first portal models for PJs</h1>
       <div class="sub">
@@ -255,24 +772,101 @@
     </div>
 
     <div class="grid">
-      <div class="panel">
+      <div class="panel reveal">
         <h3>What this shows</h3>
         <p>These are concept models only. They are not connected to your store systems yet.</p>
         <p>Each portal keeps the same brand family while changing the dashboard priorities for customers, staff, and owners.</p>
         <p>The layouts are intentionally phone-friendly so your team can open and review them from an iPhone.</p>
 
-        <div class="card" style="margin-top:16px;background:#f8fafc">
-          <div class="eyebrow" style="letter-spacing:.2em">Brand direction</div>
-          <div style="font-size:20px;font-weight:700;margin-top:8px">Comfort. Curated. PJs Approved.</div>
-          <div style="font-size:14px;color:#475569;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
-          <div style="font-size:12px;color:#64748b;margin-top:10px">Modern, approachable, polished, and premium without feeling cold.</div>
+        <div class="card brand-card reveal">
+          <div>
+            <div class="eyebrow" style="letter-spacing:.2em">Brand direction</div>
+            <div style="font-size:20px;font-weight:800;margin-top:8px">Comfort. Curated. PJs Approved.</div>
+            <div style="font-size:14px;color:#475569;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
+            <div style="font-size:12px;color:#64748b;margin-top:10px">Modern, approachable, polished, and premium without feeling cold.</div>
+          </div>
+          <img alt="Jax mascot" src="data:image/png;base64,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
+t7N3717a2trw+/2MjIywfv16Vq9eTaFQIJ1OMzs7S3d3N06nk0KhgMfj
+we12o9FoUCgU0Ov1vP3221RUVNDT08Nzzz1HKBQik8nQ1NREJBJhZGSE
+zs5OQqEQFRUV3HnnnRQKBVqtFpPJhM1mI5vN4nA46OnpQavV4nQ6sVgs
+OJ1O3nrrLfr7+5mYmOD9999n1apV7N69m5aWFmKxGDMzM4TDYdrb23G7
+3ZhMJmKxGIODg4TDYbq7u5mYmODtt99m2bJlvPPOO7z++uvY7Xbeffdd
+AoEA+XyeyclJHn30UT7//HN8Ph8jIyO0tbVhs9no7u4mk8lgs9nQ6XQ0
+Njby4IMP8vDDD/O3v/2NVCpFNBrl0KFDlMtlpqamOHXqFJFIhGQyyf79
++5mbm0OtVtPV1cWwYcM4c+YM8/PzWCwWqqurGR8fJx6P09DQgNfr5dCh
+Q3R1dTFt2rT/1CYQCATTCNrY2PjDcrn8Pzs6Ov7H5XL5f6nVav8rCwsL
+/5fFYvF/V6vV/6dWq/1/R0dH/2+j0fg/CoXC/0Mqlfr/0Wg0/5uBgYH/
+sVQq9X9qbm7+H4VC4X+m1Wp1/9fOzs7/b5VK5X9ms9n8H0mS/6lWq/2/
+W1tb/6fVavV/9ff3/5dSqfQ/1Wq1+v+tWq3+v7q7u/9PoVD4n9psNv8t
+k8nkP6fVavV/otPp/McKhUL/l1qt9j9Xq1X/x2az+f/b4ODg/7Narfa/
+stls/lcYhuH/8Xg8/t/T6XT/93g8/t9KpfI/5nI5bm5ubvyfk5OT/6e2
+trb/j1qt9j8KhcL/XqPRf2VtbW3/l6Zp/q/VavW/3d3d/X8KhcL/nc1m
+89+y2Wz+d5VK5X8cHBz8v3W73f+naZr/H0mSsFgsfPzxx5w/f56xY8fy
+5ptv0tnZicfjweFwkEgkcDgc6HQ6HA4HbrcbjUZDKBQik8lQKpVks9kc
+DgctLS0oFAoajQYejwe1Wk2pVMLn81FSUkI2m8VoNJJOp4lEItTV1eF2
+u2lpaeHxeJicnKShoYFsNou1a9cyNTVFV1cXhUKBs2fPEolE8Pv9QqEQ
+5XIZm82GQqFgsVhQKBRkMhmmpqbo7u6ms7OTQqHA0NAQ4XCYXq+npaUF
+v9+P3W5HpVJx7NgxhoaGGB8fR6/XMzQ0xJUrV1i4cCH5fJ5QKESv19PU
+1MT4+Dgul4vJyUn6+vpwOBxYrVY2bdrEyMgIDoeDVCpFOBymoaGBQqGA
+0+nE4XAwMDCARqNhbGwMr9dLMBgkEAjQ0dFBMBikrKyMffv2MTMzQ2tr
+K8FgkHA4jMFgoK2tjUwmQ3Nzc/8D2Cd2W1T4+qIAAAAASUVORK5CYII=" />
         </div>
 
-        <div class="bullet"><div class="dot"></div><div><strong>Customer Portal</strong><br><span style="color:#64748b">Receipts, order tracking, route visibility, delivery, and messaging.</span></div></div>
-        <div class="bullet"><div class="dot"></div><div><strong>Staff Portal</strong><br><span style="color:#64748b">Order lookup, follow-up tasks, service, and scheduling.</span></div></div>
-        <div class="bullet"><div class="dot"></div><div><strong>Owner Portal</strong><br><span style="color:#64748b">KPIs, bottlenecks, heatmap alerts, visibility, and oversight.</span></div></div>
+        <div class="bullet reveal"><div class="dot"></div><div><strong>Customer Portal</strong><br><span style="color:#64748b">Receipts, order tracking, route visibility, delivery, and messaging.</span></div></div>
+        <div class="bullet reveal"><div class="dot"></div><div><strong>Staff Portal</strong><br><span style="color:#64748b">Order lookup, follow-up tasks, service, and scheduling.</span></div></div>
+        <div class="bullet reveal"><div class="dot"></div><div><strong>Owner Portal</strong><br><span style="color:#64748b">KPIs, bottlenecks, heatmap alerts, visibility, and oversight.</span></div></div>
 
-        <button class="cta">Switch portal views above</button>
+        <button class="cta reveal">Switch portal views above</button>
       </div>
 
       <div>
@@ -419,10 +1013,28 @@
       return `<div class="pill ${tone}">${text}</div>`;
     }
 
+    function applyReveal(){
+      const items = document.querySelectorAll('.reveal');
+      items.forEach((el, i) => {
+        el.style.transitionDelay = `${Math.min(i * 60, 360)}ms`;
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach(el => observer.observe(el));
+    }
+
     function renderCustomer(){
       const s = customerScenarios[currentScenario];
+
       const tiles = s.tiles.map(t => `
-        <div class="tile ${t[3]}">
+        <div class="tile ${t[3]} reveal">
           <div class="icon">${t[0]}</div>
           <h4>${t[1]}</h4>
           <p>${t[2]}</p>
@@ -452,7 +1064,7 @@
       `).join("");
 
       document.getElementById("customer").innerHTML = `
-        <div class="phone-shell">
+        <div class="phone-shell reveal">
           <div class="phone">
             <div class="top">
               <div class="notch"></div>
@@ -465,14 +1077,15 @@
                 <div class="avatar">PJ</div>
               </div>
             </div>
+
             <div class="screen">
-              <div class="card">
+              <div class="card reveal">
                 <div class="small" style="color:#64748b">Try customer situations</div>
                 <div class="muted" style="margin-top:8px">Tap a login below to preview how the portal changes for three real customer moments.</div>
                 <div class="scenario-tabs">${scenarioButtons}</div>
               </div>
 
-              <div class="dark-card" style="margin-top:14px">
+              <div class="dark-card reveal" style="margin-top:14px">
                 <div class="small">${s.welcome}</div>
                 <div class="big">${s.heroTitle}</div>
                 <div class="muted" style="margin-top:10px">${s.heroText}</div>
@@ -483,17 +1096,17 @@
                   <div class="split">
                     <div>
                       <div class="small">Brand feel</div>
-                      <div style="font-size:18px;font-weight:700;margin-top:6px">Comfort. Curated. PJs Approved.</div>
+                      <div style="font-size:18px;font-weight:800;margin-top:6px">Comfort. Curated. PJs Approved.</div>
                     </div>
-                    <div class="pill ${s.statusTone}" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.12)">${s.orderStatus}</div>
+                    <div class="pill ${s.statusTone}" style="background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.14)">${s.orderStatus}</div>
                   </div>
-                  <div style="font-size:14px;color:#e2e8f0;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
+                  <div style="font-size:14px;color:#ebf1fb;margin-top:8px">Style Your Home. Comfort Your Sleep.</div>
                 </div>
               </div>
 
               <div class="row2">${tiles}</div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Delivery & Order Tracker</div>
@@ -504,7 +1117,7 @@
                 <div class="tracker">${steps}</div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Live Route & Delivery View</div>
@@ -512,6 +1125,7 @@
                   </div>
                   <div class="pill" style="background:#111827;color:#fff;border-color:#111827">${s.routeStatus}</div>
                 </div>
+
                 <div class="map">
                   <div class="map-art">
                     <div class="ring a"></div>
@@ -525,14 +1139,14 @@
                     <div class="pin live ${s.mapPinTone}">${s.mapPin}</div>
                   </div>
                   <div class="map-body">
-                    <div style="font-size:14px;font-weight:700">${s.routeStatus}</div>
+                    <div style="font-size:14px;font-weight:800">${s.routeStatus}</div>
                     <div class="muted" style="margin-top:4px;font-size:14px">${s.mapBlurb}</div>
                     <div class="mini-grid">${routeMetrics}</div>
                   </div>
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Current Order</div>
@@ -550,7 +1164,7 @@
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Message Center</div>
@@ -559,7 +1173,7 @@
                   <button class="smallbtn">Reply</button>
                 </div>
                 <div class="card" style="margin-top:14px;background:#f8fafc">
-                  <div style="font-size:14px;font-weight:700">${s.messageFrom}</div>
+                  <div style="font-size:14px;font-weight:800">${s.messageFrom}</div>
                   <div class="muted" style="margin-top:8px;font-size:14px">${s.messageText}</div>
                   <div class="btnrow" style="margin-top:14px">
                     ${s.actions.map(a => `<button class="smallbtn">${a}</button>`).join("")}
@@ -567,7 +1181,7 @@
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Digital Receipt</div>
@@ -581,7 +1195,7 @@
                 </div>
               </div>
 
-              <div class="nav">
+              <div class="nav reveal">
                 <button class="item active">⌂</button>
                 <button class="item">◫</button>
                 <button class="item">🗓</button>
@@ -597,13 +1211,14 @@
         btn.addEventListener("click", () => {
           currentScenario = btn.dataset.scenario;
           renderCustomer();
+          applyReveal();
         });
       });
     }
 
     function renderStaff(){
       document.getElementById("staff").innerHTML = `
-        <div class="phone-shell">
+        <div class="phone-shell reveal">
           <div class="phone">
             <div class="top">
               <div class="notch"></div>
@@ -616,33 +1231,35 @@
                 <div class="avatar">S</div>
               </div>
             </div>
+
             <div class="screen">
-              <div class="card">
+              <div class="card reveal">
                 <div class="split">
                   <div>
                     <div class="small" style="color:#94a3b8">Today at a glance</div>
-                    <div style="font-size:30px;font-weight:700;color:#111827;margin-top:6px">Good morning, Steven</div>
+                    <div style="font-size:30px;font-weight:800;color:#111827;margin-top:6px">Good morning, Steven</div>
                   </div>
                   <div class="avatar" style="background:#111827;color:#fff">S</div>
                 </div>
                 <div class="muted" style="margin-top:10px">Everything your team needs for orders, deliveries, receipts, customer follow-up, and day-to-day coordination in one workspace.</div>
-                <div class="dark-card" style="margin-top:14px">
+
+                <div class="dark-card reveal" style="margin-top:14px">
                   <div class="split">
                     <div>
                       <div class="small">Live Queue</div>
-                      <div style="font-size:22px;font-weight:700;margin-top:6px">8 orders need attention</div>
+                      <div style="font-size:22px;font-weight:800;margin-top:6px">8 orders need attention</div>
                     </div>
                     <div style="font-size:22px;position:relative;z-index:1">☰</div>
                   </div>
                   <div class="row2" style="grid-template-columns:repeat(3,1fr);margin-top:14px">
-                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">5</h4><p style="color:#cbd5e1">Ready</p></div>
-                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">2</h4><p style="color:#cbd5e1">Delayed</p></div>
-                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">1</h4><p style="color:#cbd5e1">Claim</p></div>
+                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">5</h4><p style="color:#d4e2f4">Ready</p></div>
+                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">2</h4><p style="color:#d4e2f4">Delayed</p></div>
+                    <div class="tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:#fff;text-align:center"><h4 style="margin:0;font-size:22px">1</h4><p style="color:#d4e2f4">Claim</p></div>
                   </div>
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="search">🔎 <span>Search customer, order #, phone, receipt…</span></div>
                 <div class="row2">
                   <div class="tile"><div class="icon">📦</div><h4>Orders</h4><p>Lookup, status, notes, and exceptions.</p></div>
@@ -652,13 +1269,13 @@
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Priority Tasks</div>
                     <div class="section-sub">Built around the real work your staff does all day.</div>
                   </div>
-                  <div style="font-size:14px;font-weight:700;color:#334155">View All</div>
+                  <div style="font-size:14px;font-weight:800;color:#334155">View All</div>
                 </div>
                 <div class="task">
                   <div class="split"><h4>3 customers need delivery confirmation</h4><div class="pill amber">High Priority</div></div>
@@ -677,14 +1294,14 @@
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="section-title">Today's Schedule</div>
                 <div class="task" style="margin-top:14px;background:#f8fafc"><div class="split"><div><h4>Open showroom + morning leads</h4><p>Front</p></div><strong style="font-size:12px">10:30 AM</strong></div></div>
                 <div class="task" style="margin-top:10px;background:#f8fafc"><div class="split"><div><h4>Caspian Town delivery</h4><p>Rogers</p></div><strong style="font-size:12px">1:00 PM</strong></div></div>
                 <div class="task" style="margin-top:10px;background:#f8fafc"><div class="split"><div><h4>Pickup appointment</h4><p>Store</p></div><strong style="font-size:12px">3:30 PM</strong></div></div>
               </div>
 
-              <div class="nav">
+              <div class="nav reveal">
                 <button class="item active">☰</button>
                 <button class="item">⌕</button>
                 <button class="item">◫</button>
@@ -699,7 +1316,7 @@
 
     function renderOwner(){
       const heat = heatmapItems.map(item => `
-        <div class="heat ${item.cls}">
+        <div class="heat ${item.cls} reveal">
           <div class="z">${item.zone}</div>
           <div class="t">${item.title}</div>
           <div class="lvl">${item.level}</div>
@@ -707,7 +1324,7 @@
       `).join("");
 
       document.getElementById("owner").innerHTML = `
-        <div class="phone-shell">
+        <div class="phone-shell reveal">
           <div class="phone">
             <div class="top">
               <div class="notch"></div>
@@ -720,8 +1337,9 @@
                 <div class="avatar">PJ</div>
               </div>
             </div>
+
             <div class="screen">
-              <div class="dark-card">
+              <div class="dark-card reveal">
                 <div class="small">Executive dashboard</div>
                 <div class="big">See the business clearly.</div>
                 <div class="muted" style="margin-top:10px">Orders, delays, revenue, service issues, customer response times, and team accountability in one secure command center.</div>
@@ -734,13 +1352,13 @@
               </div>
 
               <div class="metric-grid" style="margin-top:14px">
-                <div class="metric green"><div class="k">Sales Today</div><div class="v">$8,420</div></div>
-                <div class="metric blue"><div class="k">Open Orders</div><div class="v">27</div></div>
-                <div class="metric amber"><div class="k">Ready to Schedule</div><div class="v">6</div></div>
-                <div class="metric rose"><div class="k">Service Issues</div><div class="v">2</div></div>
+                <div class="metric green reveal"><div class="k">Sales Today</div><div class="v">$8,420</div></div>
+                <div class="metric blue reveal"><div class="k">Open Orders</div><div class="v">27</div></div>
+                <div class="metric amber reveal"><div class="k">Ready to Schedule</div><div class="v">6</div></div>
+                <div class="metric rose reveal"><div class="k">Service Issues</div><div class="v">2</div></div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Operational Watchlist</div>
@@ -762,7 +1380,7 @@
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Performance Snapshot</div>
@@ -786,7 +1404,7 @@
                 </div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="split">
                   <div>
                     <div class="section-title">Operational Heatmap</div>
@@ -797,7 +1415,7 @@
                 <div class="heat-grid">${heat}</div>
               </div>
 
-              <div class="card" style="margin-top:14px">
+              <div class="card reveal" style="margin-top:14px">
                 <div class="section-title">Owner Actions</div>
                 <div class="row2">
                   <div class="tile"><div class="icon">👥</div><h4>Team View</h4><p>Permissions, accountability, and activity.</p></div>
@@ -807,7 +1425,7 @@
                 </div>
               </div>
 
-              <div class="nav">
+              <div class="nav reveal">
                 <button class="item active">☰</button>
                 <button class="item">▥</button>
                 <button class="item">🔔</button>
@@ -823,15 +1441,18 @@
     renderCustomer();
     renderStaff();
     renderOwner();
+    applyReveal();
 
     const tabs = document.querySelectorAll(".tab");
     const portals = document.querySelectorAll(".portal");
+
     tabs.forEach(tab => {
       tab.addEventListener("click", () => {
         tabs.forEach(t => t.classList.remove("active"));
         portals.forEach(p => p.classList.add("hide"));
         tab.classList.add("active");
         document.getElementById(tab.dataset.target).classList.remove("hide");
+        applyReveal();
       });
     });
   </script>
