@@ -170,11 +170,38 @@
     .ring.a{left:24px;top:24px;width:96px;height:96px}
     .ring.b{right:28px;bottom:24px;width:76px;height:76px}
     .pin{
-      position:absolute;padding:9px 12px;border-radius:999px;font-size:12px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.12)
+      position:absolute;
+      padding:10px 14px;
+      border-radius:18px;
+      font-size:12px;
+      font-weight:700;
+      box-shadow:0 8px 24px rgba(15,23,42,.12);
+      width:auto;
+      max-width:120px;
+      text-align:center;
+      line-height:1.2;
+      white-space:normal;
+      word-break:break-word;
     }
-    .pin.store{left:28px;top:26px;background:#fff;border:1px solid var(--line);color:#334155}
-    .pin.dest{right:28px;bottom:26px;background:#111827;color:#fff}
-    .pin.live{left:44%;top:42%;transform:translate(-50%,-50%);border:4px solid #fff}
+    .pin.store{
+      left:28px;
+      top:26px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:#334155;
+    }
+    .pin.dest{
+      right:28px;
+      bottom:26px;
+      background:#111827;
+      color:#fff;
+    }
+    .pin.live{
+      left:44%;
+      top:42%;
+      transform:translate(-50%,-50%);
+      border:4px solid #fff;
+    }
     .pin.live.green{background:#10b981;color:#fff}
     .pin.live.blue{background:#3b82f6;color:#fff}
     .pin.live.amber{background:#f59e0b;color:#fff}
@@ -298,7 +325,7 @@
         orderNumber: "#10391",
         deliveryType: "In-Home Setup",
         nextStep: "Review Care Tips",
-        routeStatus: "Delivered successfully",
+        routeStatus: "Delivered",
         routeMetrics: [["Mar 2","Delivered"],["Signed","Confirmation"],["Saved","Proof"]],
         mapBlurb: "For delivered orders, the route view becomes a delivery confirmation record customers can revisit later.",
         mapPin: "Delivered",
